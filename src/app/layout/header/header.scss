@@ -1,0 +1,106 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.header {
+  background-color: $gray-900;
+  border-bottom: 1px solid $gray-800;
+  padding: $spacing-4 0;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+.header-content {
+  @include flex-between;
+  gap: $spacing-8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  color: $white;
+  @include transition(transform);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.logo-slash {
+  color: #f59e0b;
+}
+
+.logo-text {
+  color: $white;
+}
+
+.nav {
+  display: flex;
+  gap: $spacing-8;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.nav-link {
+  color: $gray-300;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  padding: $spacing-2 $spacing-3;
+  border-radius: $radius-md;
+  @include transition(color, background-color);
+
+  &:hover {
+    color: $white;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    color: $white;
+  }
+}
+
+.social-icons {
+  display: flex;
+  gap: $spacing-4;
+  align-items: center;
+}
+
+.icon-link {
+  color: $gray-400;
+  @include transition(color, transform);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2;
+  border-radius: $radius-md;
+
+  &:hover {
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+.theme-toggle {
+  @include reset-button;
+  color: $gray-400;
+  cursor: pointer;
+  @include transition(color, transform);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2;
+  border-radius: $radius-md;
+
+  &:hover {
+    color: $white;
+    transform: rotate(20deg);
+  }
+}

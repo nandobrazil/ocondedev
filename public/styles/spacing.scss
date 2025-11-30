@@ -1,0 +1,144 @@
+@import 'variables';
+
+// Mapa de espaçamentos
+$spacings: (
+  '0': $spacing-0,
+  '1': $spacing-1,
+  '2': $spacing-2,
+  '3': $spacing-3,
+  '4': $spacing-4,
+  '5': $spacing-5,
+  '6': $spacing-6,
+  '8': $spacing-8,
+  '10': $spacing-10,
+  '12': $spacing-12,
+  '16': $spacing-16,
+  '20': $spacing-20,
+  '24': $spacing-24,
+);
+
+// Gerar classes de margem
+@each $name, $value in $spacings {
+  // Margin all sides
+  .m-#{$name} {
+    margin: $value;
+  }
+
+  // Margin top
+  .mt-#{$name} {
+    margin-top: $value;
+  }
+
+  // Margin right
+  .mr-#{$name} {
+    margin-right: $value;
+  }
+
+  // Margin bottom
+  .mb-#{$name} {
+    margin-bottom: $value;
+  }
+
+  // Margin left
+  .ml-#{$name} {
+    margin-left: $value;
+  }
+
+  // Margin horizontal (left + right)
+  .mx-#{$name} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  // Margin vertical (top + bottom)
+  .my-#{$name} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+}
+
+// Gerar classes de padding
+@each $name, $value in $spacings {
+  // Padding all sides
+  .p-#{$name} {
+    padding: $value;
+  }
+
+  // Padding top
+  .pt-#{$name} {
+    padding-top: $value;
+  }
+
+  // Padding right
+  .pr-#{$name} {
+    padding-right: $value;
+  }
+
+  // Padding bottom
+  .pb-#{$name} {
+    padding-bottom: $value;
+  }
+
+  // Padding left
+  .pl-#{$name} {
+    padding-left: $value;
+  }
+
+  // Padding horizontal (left + right)
+  .px-#{$name} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  // Padding vertical (top + bottom)
+  .py-#{$name} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Gap para flexbox/grid
+@each $name, $value in $spacings {
+  .gap-#{$name} {
+    gap: $value;
+  }
+
+  .gap-x-#{$name} {
+    column-gap: $value;
+  }
+
+  .gap-y-#{$name} {
+    row-gap: $value;
+  }
+}
+
+// Utilitários adicionais
+.m-auto {
+  margin: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}

@@ -1,0 +1,342 @@
+@import 'variables';
+@import 'mixins';
+
+// Row - Container das colunas
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -$spacing-4;
+  margin-right: -$spacing-4;
+
+  // Row sem gutters
+  &.no-gutters {
+    margin-left: 0;
+    margin-right: 0;
+
+    > [class*="col-"] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+// Mixin para gerar colunas
+@mixin make-cols($prefix: '') {
+  @for $i from 1 through 12 {
+    .#{$prefix}col-#{$i} {
+      flex: 0 0 auto;
+      width: percentage($i / 12);
+      padding-left: $spacing-4;
+      padding-right: $spacing-4;
+    }
+  }
+
+  // Coluna auto (cresce para preencher)
+  .#{$prefix}col-auto {
+    flex: 0 0 auto;
+    width: auto;
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
+  }
+
+  // Coluna que ocupa todo o espaço disponível
+  .#{$prefix}col {
+    flex: 1 0 0%;
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
+  }
+}
+
+// Colunas base (mobile-first, sem prefixo)
+@include make-cols();
+
+// Colunas para SM (≥640px)
+@include tablet {
+  @include make-cols('sm\\:');
+}
+
+// Colunas para MD (≥768px)
+@include desktop {
+  @include make-cols('md\\:');
+}
+
+// Colunas para LG (≥1024px)
+@include large-desktop {
+  @include make-cols('lg\\:');
+}
+
+// Colunas para XL (≥1280px)
+@include xl-desktop {
+  @include make-cols('xl\\:');
+}
+
+// Colunas para 2XL (≥1536px)
+@include xxl-desktop {
+  @include make-cols('xxl\\:');
+}
+
+// Offset (margem à esquerda)
+@mixin make-offsets($prefix: '') {
+  @for $i from 0 through 11 {
+    .#{$prefix}offset-#{$i} {
+      margin-left: percentage($i / 12);
+    }
+  }
+}
+
+// Offsets base
+@include make-offsets();
+
+// Offsets responsivos
+@include tablet {
+  @include make-offsets('sm\\:');
+}
+
+@include desktop {
+  @include make-offsets('md\\:');
+}
+
+@include large-desktop {
+  @include make-offsets('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-offsets('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-offsets('xxl\\:');
+}
+
+// Order (ordem dos elementos)
+@mixin make-order($prefix: '') {
+  @for $i from 1 through 12 {
+    .#{$prefix}order-#{$i} {
+      order: $i;
+    }
+  }
+
+  .#{$prefix}order-first {
+    order: -1;
+  }
+
+  .#{$prefix}order-last {
+    order: 13;
+  }
+}
+
+// Order base
+@include make-order();
+
+// Order responsivo
+@include tablet {
+  @include make-order('sm\\:');
+}
+
+@include desktop {
+  @include make-order('md\\:');
+}
+
+@include large-desktop {
+  @include make-order('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-order('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-order('xxl\\:');
+}
+
+// Display responsivo
+@mixin make-display($prefix: '') {
+  .#{$prefix}d-none {
+    display: none;
+  }
+
+  .#{$prefix}d-block {
+    display: block;
+  }
+
+  .#{$prefix}d-flex {
+    display: flex;
+  }
+
+  .#{$prefix}d-inline {
+    display: inline;
+  }
+
+  .#{$prefix}d-inline-block {
+    display: inline-block;
+  }
+
+  .#{$prefix}d-grid {
+    display: grid;
+  }
+}
+
+// Display base
+@include make-display();
+
+// Display responsivo
+@include tablet {
+  @include make-display('sm\\:');
+}
+
+@include desktop {
+  @include make-display('md\\:');
+}
+
+@include large-desktop {
+  @include make-display('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-display('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-display('xxl\\:');
+}
+
+// Justify content responsivo
+@mixin make-justify($prefix: '') {
+  .#{$prefix}justify-start {
+    justify-content: flex-start;
+  }
+
+  .#{$prefix}justify-center {
+    justify-content: center;
+  }
+
+  .#{$prefix}justify-end {
+    justify-content: flex-end;
+  }
+
+  .#{$prefix}justify-between {
+    justify-content: space-between;
+  }
+
+  .#{$prefix}justify-around {
+    justify-content: space-around;
+  }
+
+  .#{$prefix}justify-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+// Justify base
+@include make-justify();
+
+// Justify responsivo
+@include tablet {
+  @include make-justify('sm\\:');
+}
+
+@include desktop {
+  @include make-justify('md\\:');
+}
+
+@include large-desktop {
+  @include make-justify('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-justify('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-justify('xxl\\:');
+}
+
+// Align items responsivo
+@mixin make-align($prefix: '') {
+  .#{$prefix}items-start {
+    align-items: flex-start;
+  }
+
+  .#{$prefix}items-center {
+    align-items: center;
+  }
+
+  .#{$prefix}items-end {
+    align-items: flex-end;
+  }
+
+  .#{$prefix}items-stretch {
+    align-items: stretch;
+  }
+
+  .#{$prefix}items-baseline {
+    align-items: baseline;
+  }
+}
+
+// Align base
+@include make-align();
+
+// Align responsivo
+@include tablet {
+  @include make-align('sm\\:');
+}
+
+@include desktop {
+  @include make-align('md\\:');
+}
+
+@include large-desktop {
+  @include make-align('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-align('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-align('xxl\\:');
+}
+
+// Flex direction responsivo
+@mixin make-flex-direction($prefix: '') {
+  .#{$prefix}flex-row {
+    flex-direction: row;
+  }
+
+  .#{$prefix}flex-col {
+    flex-direction: column;
+  }
+
+  .#{$prefix}flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .#{$prefix}flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+// Flex direction base
+@include make-flex-direction();
+
+// Flex direction responsivo
+@include tablet {
+  @include make-flex-direction('sm\\:');
+}
+
+@include desktop {
+  @include make-flex-direction('md\\:');
+}
+
+@include large-desktop {
+  @include make-flex-direction('lg\\:');
+}
+
+@include xl-desktop {
+  @include make-flex-direction('xl\\:');
+}
+
+@include xxl-desktop {
+  @include make-flex-direction('xxl\\:');
+}
