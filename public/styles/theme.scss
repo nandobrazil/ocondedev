@@ -1,0 +1,153 @@
+@import 'variables';
+
+// CSS Variables para Light Mode (padrão)
+:root {
+  // Cores Primárias
+  --color-primary: #{$primary};
+  --color-primary-light: #{$primary-light};
+  --color-primary-dark: #{$primary-dark};
+
+  // Cores Secundárias
+  --color-secondary: #{$secondary};
+  --color-secondary-light: #{$secondary-light};
+  --color-secondary-dark: #{$secondary-dark};
+
+  // Cores de Estado
+  --color-success: #{$success};
+  --color-warning: #{$warning};
+  --color-error: #{$error};
+  --color-info: #{$info};
+
+  // Cores Neutras
+  --color-white: #{$white};
+  --color-black: #{$black};
+  --color-gray-50: #{$gray-50};
+  --color-gray-100: #{$gray-100};
+  --color-gray-200: #{$gray-200};
+  --color-gray-300: #{$gray-300};
+  --color-gray-400: #{$gray-400};
+  --color-gray-500: #{$gray-500};
+  --color-gray-600: #{$gray-600};
+  --color-gray-700: #{$gray-700};
+  --color-gray-800: #{$gray-800};
+  --color-gray-900: #{$gray-900};
+
+  // Cores de Texto
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-disabled: #{$text-disabled};
+  --text-inverse: #{$text-inverse};
+
+  // Cores de Background
+  --bg-primary: #{$bg-primary};
+  --bg-secondary: #{$bg-secondary};
+  --bg-tertiary: #{$bg-tertiary};
+
+  // Sombras
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --shadow-2xl: #{$shadow-2xl};
+
+  // Border
+  --border-color: #{$gray-200};
+  --border-color-hover: #{$gray-300};
+}
+
+// CSS Variables para Dark Mode
+html.light,
+[data-theme="light"] {
+  // Cores Primárias
+  --color-primary: #{$dark-primary};
+  --color-primary-light: #{$dark-primary-light};
+  --color-primary-dark: #{$dark-primary-dark};
+
+  // Cores Secundárias
+  --color-secondary: #{$dark-secondary};
+  --color-secondary-light: #{$dark-secondary-light};
+  --color-secondary-dark: #{$dark-secondary-dark};
+
+  // Cores de Estado
+  --color-success: #{$dark-success};
+  --color-warning: #{$dark-warning};
+  --color-error: #{$dark-error};
+  --color-info: #{$dark-info};
+
+  // Cores Neutras (invertidas)
+  --color-gray-50: #{$dark-gray-50};
+  --color-gray-100: #{$dark-gray-100};
+  --color-gray-200: #{$dark-gray-200};
+  --color-gray-300: #{$dark-gray-300};
+  --color-gray-400: #{$dark-gray-400};
+  --color-gray-500: #{$dark-gray-500};
+  --color-gray-600: #{$dark-gray-600};
+  --color-gray-700: #{$dark-gray-700};
+  --color-gray-800: #{$dark-gray-800};
+  --color-gray-900: #{$dark-gray-900};
+
+  // Cores de Texto
+  --text-primary: #{$dark-text-primary};
+  --text-secondary: #{$dark-text-secondary};
+  --text-disabled: #{$dark-text-disabled};
+  --text-inverse: #{$dark-text-inverse};
+
+  // Cores de Background
+  --bg-primary: #{$dark-bg-primary};
+  --bg-secondary: #{$dark-bg-secondary};
+  --bg-tertiary: #{$dark-bg-tertiary};
+
+  // Sombras
+  --shadow-sm: #{$dark-shadow-sm};
+  --shadow-md: #{$dark-shadow-md};
+  --shadow-lg: #{$dark-shadow-lg};
+  --shadow-xl: #{$dark-shadow-xl};
+  --shadow-2xl: #{$dark-shadow-2xl};
+
+  // Border
+  --border-color: #{$dark-gray-300};
+  --border-color-hover: #{$dark-gray-400};
+}
+
+// Classes utilitárias para usar as variáveis CSS
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.text-color-primary {
+  color: var(--text-primary);
+}
+
+.text-color-secondary {
+  color: var(--text-secondary);
+}
+
+.text-color-disabled {
+  color: var(--text-disabled);
+}
+
+.border-base {
+  border-color: var(--border-color);
+}
+
+// Aplicar tema automaticamente no body
+body {
+  background-color: var(--color-gray-900);
+  color: var(--color-white);
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+// Transição suave para elementos que mudam com o tema
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}

@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {LocalStorageService} from '../../core/services/local-storage.service';
+import {IStorageKeys} from '../../core/interfaces/IStorageKeys';
 
 @Component({
   selector: 'c-header',
@@ -11,10 +13,16 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
   ]
 })
 export class HeaderComponent {
-  isDarkMode = false;
+  storageKeys: IStorageKeys;
+
+  constructor(
+    private localStorageService: LocalStorageService
+  ) {
+    this.storageKeys = this.localStorageService.getStorage();
+  }
 
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    document.documentElement.classList.toggle('dark', this.isDarkMode);
+    this.storageKeys.lightMode = !this.storageKeys.lightMode;
+    this.localStorageService.toggleTheme(this.storageKeys.lightMode)
   }
 }
