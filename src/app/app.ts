@@ -22,6 +22,7 @@ import {FooterComponent} from './layout/footer/footer';
 
     main {
       flex: 1;
+      padding-top: 72px;
     }
   `]
 })

@@ -1,0 +1,260 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.resume-section {
+  min-height: calc(100vh - 200px);
+  padding: $spacing-20 0;
+
+  @include mobile {
+    padding: $spacing-12 0;
+  }
+}
+
+.header-content {
+  text-align: center;
+  margin-bottom: $spacing-16;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include mobile {
+    margin-bottom: $spacing-12;
+  }
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-6;
+  letter-spacing: -0.02em;
+
+  @include mobile {
+    font-size: $font-size-4xl;
+  }
+}
+
+.wave-divider {
+  margin: 0 auto $spacing-6;
+
+  svg {
+    width: 120px;
+    height: 20px;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: var(--text-secondary);
+  line-height: $line-height-relaxed;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.content-section {
+  margin-bottom: $spacing-16;
+
+  @include mobile {
+    margin-bottom: $spacing-12;
+  }
+}
+
+.section-title {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-4;
+}
+
+.section-description {
+  font-size: $font-size-base;
+  color: var(--text-secondary);
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-8;
+  max-width: 800px;
+}
+
+.download-link {
+  color: #f59e0b;
+  font-weight: $font-weight-semibold;
+  text-decoration: underline;
+  text-decoration-color: #f59e0b;
+  text-underline-offset: 3px;
+  @include transition(color);
+
+  &:hover {
+    color: #ea580c;
+  }
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  color: var(--text-primary);
+  @include transition(all);
+
+  &:hover {
+    border-color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.skill-icon {
+  font-size: $font-size-base;
+}
+
+.skill-name {
+  font-weight: $font-weight-medium;
+}
+
+.timeline {
+  position: relative;
+  padding-left: $spacing-8;
+
+  @include mobile {
+    padding-left: $spacing-6;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        #f59e0b,
+        #fb923c,
+        #fdba74
+    );
+
+    @include mobile {
+      left: 0;
+    }
+  }
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: $spacing-12;
+  animation: slideInUp 0.6s ease-out backwards;
+
+  @include mobile {
+    margin-bottom: $spacing-8;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -$spacing-2-4;
+  width: 16px;
+  height: 16px;
+  background-color: #f59e0b;
+  border: 3px solid var(--bg-primary);
+  border-radius: $radius-full;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+
+  @include mobile {
+    left: -$spacing-6;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.job-card {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  @include transition(all);
+
+  &:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15);
+    transform: translateX(4px);
+  }
+}
+
+.job-header {
+  margin-bottom: $spacing-5;
+}
+
+.job-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-2;
+}
+
+.job-company {
+  color: var(--text-primary);
+  font-weight: $font-weight-semibold;
+}
+
+.job-location {
+  color: var(--text-secondary);
+}
+
+.job-type {
+  color: var(--text-secondary);
+}
+
+.separator {
+  color: var(--text-disabled);
+}
+
+.job-period {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.responsibilities-list {
+  @include reset-list;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  li {
+    position: relative;
+    padding-left: $spacing-6;
+    font-size: $font-size-base;
+    color: var(--text-secondary);
+    line-height: $line-height-relaxed;
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: $spacing-3;
+      color: #f59e0b;
+      font-weight: $font-weight-bold;
+    }
+  }
+}

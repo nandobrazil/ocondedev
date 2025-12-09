@@ -1,0 +1,107 @@
+<section class="not-found-section">
+  <div class="container">
+    <div class="content-wrapper">
+
+      <!-- Ilustração 404 com SVG -->
+      <div class="illustration animate-fade-in">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="not-found-svg">
+          <!-- Background elements -->
+          <circle cx="400" cy="300" r="200" fill="var(--bg-primary)" opacity="0.3" class="pulse-slow"/>
+          <circle cx="400" cy="300" r="150" fill="var(--bg-primary)" opacity="0.2" class="pulse-medium"/>
+
+          <!-- 404 Text -->
+          <text x="400" y="280" font-size="180" font-weight="bold" text-anchor="middle" fill="#f59e0b" class="number-404">
+            404
+          </text>
+
+          <!-- Decoration circles -->
+          <circle cx="200" cy="150" r="15" fill="#f59e0b" class="float-1"/>
+          <circle cx="600" cy="180" r="20" fill="#fb923c" class="float-2"/>
+          <circle cx="150" cy="400" r="12" fill="#fdba74" class="float-3"/>
+          <circle cx="650" cy="420" r="18" fill="#f59e0b" class="float-1"/>
+
+          <!-- Slashes decoration (like logo) -->
+          <path d="M 320 350 L 340 400" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" class="slash-1"/>
+          <path d="M 335 350 L 355 400" stroke="#fb923c" stroke-width="8" stroke-linecap="round" class="slash-2"/>
+
+          <path d="M 460 350 L 480 400" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" class="slash-1"/>
+          <path d="M 475 350 L 495 400" stroke="#fb923c" stroke-width="8" stroke-linecap="round" class="slash-2"/>
+
+          <!-- Abstract shapes -->
+          <rect x="100" y="250" width="60" height="60" fill="#f59e0b" opacity="0.2" rx="8" class="rotate-slow"/>
+          <rect x="640" y="280" width="50" height="50" fill="#fb923c" opacity="0.3" rx="8" class="rotate-reverse"/>
+
+          <!-- Warning triangles -->
+          <path d="M 250 480 L 270 440 L 230 440 Z" fill="#f59e0b" opacity="0.6" class="float-2"/>
+          <path d="M 550 500 L 575 450 L 525 450 Z" fill="#fb923c" opacity="0.5" class="float-3"/>
+
+          <!-- Code brackets -->
+          <text x="280" y="200" font-size="60" fill="#fff" opacity="0.4" class="code-char">&lt;</text>
+          <text x="500" y="220" font-size="60" fill="#fff" opacity="0.4" class="code-char">/&gt;</text>
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div class="text-content">
+        <h1 class="title animate-slide-in-up">
+          Página não encontrada
+        </h1>
+
+        <div class="wave-divider animate-slide-in-up animation-delay-100">
+          <svg viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,10 Q15,0 30,10 T60,10 T90,10 T120,10"
+                  stroke="#f59e0b"
+                  stroke-width="3"
+                  fill="none"/>
+          </svg>
+        </div>
+
+        <p class="description animate-slide-in-up animation-delay-200">
+          Ops! A página que você está procurando não existe ou foi movida.
+        </p>
+
+        <div class="actions animate-slide-in-up animation-delay-300">
+          <a routerLink="/" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Home
+          </a>
+
+          <button onclick="history.back()" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"/>
+              <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Voltar
+          </button>
+        </div>
+
+        <!-- Quick links -->
+        <div class="quick-links animate-slide-in-up animation-delay-400">
+          <p class="quick-links-title">Links rápidos:</p>
+          <div class="links-grid">
+            <a routerLink="/" class="quick-link">
+              <span class="link-icon">//</span>
+              Home
+            </a>
+            <a routerLink="/resume" class="quick-link">
+              <span class="link-icon">//</span>
+              Resumo
+            </a>
+            <a routerLink="/contact" class="quick-link">
+              <span class="link-icon">//</span>
+              Contato
+            </a>
+            <a routerLink="/uses" class="quick-link">
+              <span class="link-icon">//</span>
+              Setup
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

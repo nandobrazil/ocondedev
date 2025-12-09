@@ -1,0 +1,162 @@
+<div class="home-page">
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <!-- Hero Text -->
+        <div class="hero-text">
+          <div class="greeting animate-slide-in-up">
+            <span class="wave">👋</span>
+            <span>Olá, eu sou o</span>
+          </div>
+
+          <h1 class="hero-title animate-slide-in-up animation-delay-100">
+            Fernando Conde
+          </h1>
+
+          <div class="hero-subtitle animate-slide-in-up animation-delay-200">
+            <span class="slash">//</span>
+            <span class="role">Full-Stack Engineer</span>
+          </div>
+
+          <p class="hero-description animate-slide-in-up animation-delay-300">
+            Criando experiências web excepcionais com tecnologias modernas. <br>
+            Front-End com Angular, TypeScript, Node.js com mais de {{yearFront}} anos de experiência. <br>
+            Back-End em .NET C# com mais de {{yearBack}} anos de experiência.
+          </p>
+
+          <div class="hero-actions animate-slide-in-up animation-delay-400">
+            <a routerLink="/contact" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="M3 7l9 6 9-6"/>
+              </svg>
+              Contato
+            </a>
+            <a routerLink="/resume" class="btn btn-secondary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              Resumo
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section animate-slide-in-up animation-delay-500">
+    <div class="container">
+      <div class="stats-grid">
+        @for (stat of stats; track stat) {
+          <div class="stat-card">
+            <span class="stat-icon">{{ stat.icon }}</span>
+            <div class="stat-content">
+              <div class="stat-value">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="projects-section">
+    <div class="container">
+      <div class="section-header animate-slide-in-up">
+        <h2 class="section-title">Trabalho em destaque</h2>
+        <p class="section-description">
+          Alguns dos projetos em que trabalhei recentemente
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        @for (project of featuredProjects; track project; let i = $index) {
+          <div class="project-card animate-slide-in-up"
+               [style.animation-delay]="(600 + i * 100) + 'ms'">
+
+            <div class="project-icon">{{ project.icon }}</div>
+
+            <h3 class="project-title">{{ project.title }}</h3>
+            <p class="project-description">{{ project.description }}</p>
+
+            <div class="project-tech">
+              @for (tech of project.technologies; track tech) {
+                <span class="tech-badge">
+              {{ tech }}
+            </span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Preview Section -->
+  <section class="tech-section">
+    <div class="container">
+      <div class="section-header animate-slide-in-up">
+        <h2 class="section-title">Tech Stack</h2>
+        <p class="section-description">
+          Tecnologias com as quais trabalho diariamente
+        </p>
+      </div>
+
+      <div class="tech-grid animate-slide-in-up animation-delay-100">
+        @for (skill of topSkills; track skill) {
+          <div class="tech-badge-large">
+            {{ skill }}
+          </div>
+        }
+      </div>
+
+      <div class="tech-cta animate-slide-in-up animation-delay-200">
+        <a routerLink="/uses" class="link-arrow">
+          Veja todas minhas ferramentas e setup
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-slide-in-up">
+        <div class="cta-illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="#f59e0b" opacity="0.2" class="pulse-slow"/>
+            <circle cx="100" cy="100" r="50" fill="#fb923c" opacity="0.3" class="pulse-medium"/>
+            <text x="100" y="115" font-size="60" text-anchor="middle" fill="#f59e0b">🚀</text>
+          </svg>
+        </div>
+
+        <h2 class="cta-title">Prontos para trabalhar em conjunto?</h2>
+        <p class="cta-description">
+          Vamos conversar sobre o seu projeto e construir algo incrível.
+        </p>
+
+        <a routerLink="/contact" class="btn btn-primary btn-large">
+          Iniciar uma conversa
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -14,7 +14,15 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/resume/resume').then(m => m.ResumeComponent)
   },
   {
+    path: 'uses',
+    loadComponent: () => import('./pages/uses/uses').then(m => m.UsesComponent)
+  },
+  {
+    path: 'not-found',
+    loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFoundComponent)
+  },
+  {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'not-found'
   }
 ];

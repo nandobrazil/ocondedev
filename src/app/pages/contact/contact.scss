@@ -1,0 +1,96 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.contact-section {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  padding: $spacing-20 0;
+
+  @include mobile {
+    padding: $spacing-12 0;
+  }
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-6;
+
+  @include mobile {
+    font-size: $font-size-4xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-xl;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-8;
+
+  @include mobile {
+    font-size: $font-size-lg;
+  }
+}
+
+.wave-divider {
+  margin-bottom: $spacing-12;
+
+  svg {
+    width: 120px;
+    height: 20px;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.contact-text {
+  font-size: $font-size-lg;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: $line-height-relaxed;
+
+  @include mobile {
+    font-size: $font-size-base;
+  }
+}
+
+.email-link {
+  color: var(--text-primary);
+  font-weight: $font-weight-semibold;
+  text-decoration: underline;
+  text-decoration-color: #f59e0b;
+  text-underline-offset: 4px;
+  @include transition(color);
+
+  &:hover {
+    color: #f59e0b;
+  }
+}
+
+.link {
+  color: var(--text-primary);
+  font-weight: $font-weight-semibold;
+  text-decoration: underline;
+  @include transition(color);
+
+  &:hover {
+    color: #f59e0b;
+  }
+}
+
+.response-time {
+  font-size: $font-size-base;
+  color: var(--text-secondary);
+  margin-top: $spacing-4;
+  font-style: italic;
+}

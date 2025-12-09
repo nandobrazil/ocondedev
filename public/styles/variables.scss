@@ -80,6 +80,7 @@ $spacing-4: 1rem;     // 16px
 $spacing-5: 1.25rem;  // 20px
 $spacing-6: 1.5rem;   // 24px
 $spacing-8: 2rem;     // 32px
+$spacing-2-4: 2.4rem;  // 38px
 $spacing-10: 2.5rem;  // 40px
 $spacing-12: 3rem;    // 48px
 $spacing-16: 4rem;    // 64px
@@ -131,9 +132,9 @@ $container-padding: $spacing-4;
 // ============================================
 
 // Dark Mode - Cores Primárias
-$dark-primary: #60a5fa;
-$dark-primary-light: #93c5fd;
-$dark-primary-dark: #3b82f6;
+$dark-primary: $gray-900;
+$dark-primary-light: $gray-800;
+$dark-primary-dark: $gray-900;
 
 // Dark Mode - Cores Secundárias
 $dark-secondary: #a78bfa;
@@ -159,14 +160,14 @@ $dark-gray-800: #f5f5f5;
 $dark-gray-900: #fafafa;
 
 // Dark Mode - Cores de Texto
-$dark-text-primary: #f5f5f5;
-$dark-text-secondary: #d4d4d4;
+$dark-text-primary: $gray-100;
+$dark-text-secondary: $gray-300;
 $dark-text-disabled: #737373;
 $dark-text-inverse: #1a1a1a;
 
 // Dark Mode - Cores de Background
-$dark-bg-primary: #0f172a;
-$dark-bg-secondary: #1e293b;
+$dark-bg-primary: $gray-900;
+$dark-bg-secondary: $gray-800;
 $dark-bg-tertiary: #334155;
 
 // Dark Mode - Sombras (mais sutis)

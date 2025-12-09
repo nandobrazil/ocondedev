@@ -2,12 +2,19 @@
 @import 'styles/mixins';
 
 .header {
-  background-color: var(--color-gray-900);
-  border-bottom: 1px solid var(--color-gray-800);
-  padding: $spacing-4 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: $z-sticky;
+  backdrop-filter: blur(10px);
+  padding: $spacing-4 0;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+
+  &.scrolled {
+    padding: $spacing-3 0;
+  }
 }
 
 .header-content {
@@ -35,7 +42,7 @@
 }
 
 .logo-text {
-  color: var(--color-gray-300);
+  color: var(--text-primary);
 }
 
 .nav {
@@ -48,7 +55,7 @@
 }
 
 .nav-link {
-  color: var(--color-gray-500);
+  color: var(--text-secondary);
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   letter-spacing: 0.05em;
@@ -58,12 +65,12 @@
   @include transition(color, background-color);
 
   &:hover {
-    color: var(--color-gray-100);
+    color: var(--text-primary);
     background-color: rgba(255, 255, 255, 0.05);
   }
 
   &.active {
-    color: var(--color-gray-100);
+    color: var(--text-primary);
     background-color: rgba(255, 255, 255, 0.05);
   }
 }
@@ -75,7 +82,7 @@
 }
 
 .icon-link {
-  color: var(--color-gray-400);
+  color: var(--text-secondary);
   @include transition(color, transform);
   display: flex;
   align-items: center;
@@ -84,14 +91,14 @@
   border-radius: $radius-md;
 
   &:hover {
-    color: var(--color-gray-100);
+    color: var(--text-primary);
     transform: translateY(-2px);
   }
 }
 
 .theme-toggle {
   @include reset-button;
-  color: var(--color-gray-400);
+  color: var(--text-secondary);
   cursor: pointer;
   @include transition(color, transform);
   display: flex;
@@ -101,7 +108,7 @@
   border-radius: $radius-md;
 
   &:hover {
-    color: var(--color-gray-100);
+    color: var(--text-primary);
     transform: rotate(20deg);
   }
 }

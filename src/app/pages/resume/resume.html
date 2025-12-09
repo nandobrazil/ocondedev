@@ -1,0 +1,84 @@
+<section class="resume-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header-content animate-fade-in">
+      <h1 class="title">My Resume / CV</h1>
+
+      <div class="wave-divider">
+        <svg viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,10 Q15,0 30,10 T60,10 T90,10 T120,10"
+                stroke="#f59e0b"
+                stroke-width="3"
+                fill="none"/>
+        </svg>
+      </div>
+
+      <p class="subtitle">
+        Sou desenvolvedor full-stack qualificado, com mais de 8 anos de experiência na criação de aplicações web.
+        Nesta página, você pode saber mais sobre minhas habilidades e minha experiência profissional anterior.
+      </p>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="content-section animate-slide-in-up animation-delay-100">
+      <h2 class="section-title">Skills</h2>
+      <p class="section-description">
+        Aqui estão os frameworks, bibliotecas, serviços e ambientes de execução com os quais tenho experiência.
+        Esta não é uma lista completa! Estou constantemente adquirindo novas habilidades e, portanto, pode estar um pouco desatualizada.
+      </p>
+
+      <div class="skills-grid">
+        @for (skill of skills; track skill) {
+          <div class="skill-badge">
+            @if (skill.icon) {
+              <span class="skill-icon">{{ skill.icon }}</span>
+            }
+            <span class="skill-name">{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Work History Section -->
+    <div class="content-section animate-slide-in-up animation-delay-200">
+      <h2 class="section-title">Histórico profissional</h2>
+      <p class="section-description">
+        Abaixo você encontrará um resumo da minha experiência profissional anterior.
+      </p>
+
+      <div class="timeline">
+        @for (job of workHistory; track job; let i = $index) {
+          <div class="timeline-item"
+               [style.animation-delay]="(300 + i * 100) + 'ms'">
+
+            <div class="timeline-marker"></div>
+
+            <div class="job-card">
+              <div class="job-header">
+                <h3 class="job-title">{{ job.title }}</h3>
+                <div class="job-meta">
+                  <span class="job-company">{{ job.company }}</span>
+                  <span class="separator">•</span>
+                  <span class="job-location">{{ job.location }}</span>
+                  @if (job.type) {
+                    <span class="separator">•</span>
+                    <span class="job-type">{{ job.type }}</span>
+                  }
+                </div>
+                <div class="job-period">{{ job.period }}</div>
+              </div>
+
+              <ul class="responsibilities-list">
+                @for (responsibility of job.responsibilities; track responsibility) {
+                  <li>{{ responsibility }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -16,7 +16,11 @@ export class LocalStorageService {
 
   getStorage(): IStorageKeys {
     const storageKeys = localStorage.getItem(this.STORAGE_KEY) as string;
-    if (storageKeys) return JSON.parse(storageKeys);
+    const parsed = storageKeys ? JSON.parse(storageKeys) : null;
+    if (parsed) {
+      document.documentElement.classList.toggle('light', parsed?.lightMode);
+      return parsed;
+    }
     this.setStorage(this.newStorageKeys());
     return this.storageKeys;
   }

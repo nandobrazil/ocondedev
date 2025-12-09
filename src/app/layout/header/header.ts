@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {LocalStorageService} from '../../core/services/local-storage.service';
 import {IStorageKeys} from '../../core/interfaces/IStorageKeys';
@@ -14,11 +14,17 @@ import {IStorageKeys} from '../../core/interfaces/IStorageKeys';
 })
 export class HeaderComponent {
   storageKeys: IStorageKeys;
+  isScrolled = false;
 
   constructor(
     private localStorageService: LocalStorageService
   ) {
     this.storageKeys = this.localStorageService.getStorage();
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 20;
   }
 
   toggleTheme() {
