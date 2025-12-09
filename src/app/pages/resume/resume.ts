@@ -20,6 +20,7 @@ interface Job {
   styleUrls: ['resume.scss'],
 })
 export class ResumeComponent {
+  year = (new Date().getFullYear() - 2019);
   skills: Skill[] = [
     { name: 'Angular', icon: '🅰️' },
     { name: 'TypeScript', icon: 'TS' },
