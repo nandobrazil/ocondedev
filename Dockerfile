@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install -f
 COPY . .
-RUN npm run build-prod
+RUN npm run build
 FROM nginx:alpine
 COPY --from=builder /app/dist/ocondedev/* /usr/share/nginx/html/
 EXPOSE 80
