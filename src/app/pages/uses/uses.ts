@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 interface UseItem {
   label: string;
@@ -15,7 +14,6 @@ interface UseSection {
 
 @Component({
   selector: 'c-uses',
-  imports: [CommonModule],
   templateUrl: './uses.html',
   styleUrls: ['./uses.scss']
 })

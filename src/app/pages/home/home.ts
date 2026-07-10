@@ -15,6 +15,9 @@ interface Stat {
   icon: string;
 }
 
+const FRONTEND_SINCE = 2019;
+const BACKEND_SINCE = 2022;
+
 @Component({
   selector: 'c-home',
   templateUrl: './home.html',
@@ -22,8 +25,8 @@ interface Stat {
   imports: [RouterLink]
 })
 export class HomeComponent {
-  yearFront = (2019 - new Date().getFullYear()) * -1;
-  yearBack = (2022 - new Date().getFullYear()) * -1;
+  yearFront = new Date().getFullYear() - FRONTEND_SINCE;
+  yearBack = new Date().getFullYear() - BACKEND_SINCE;
   featuredProjects: Project[] = [
     {
       title: 'Sistema Inteligente de Gestão de Licitações',

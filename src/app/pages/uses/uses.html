@@ -92,6 +92,7 @@
             <a *ngIf="item.link; else noLink"
                [href]="item.link"
                target="_blank"
+               rel="noopener noreferrer"
                class="item-value">
               {{ item.value }}
             </a>

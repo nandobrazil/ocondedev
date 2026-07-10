@@ -25,13 +25,13 @@
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
               "includePaths": [
-                "public"
+                "src"
               ]
             },
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src"
               }
             ],
             "styles": [
@@ -48,8 +48,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all"

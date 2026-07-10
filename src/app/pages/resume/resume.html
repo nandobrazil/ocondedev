@@ -29,7 +29,7 @@
       </p>
 
       <div class="skills-grid">
-        @for (skill of skills; track skill) {
+        @for (skill of skills; track skill.name) {
           <div class="skill-badge">
             @if (skill.icon) {
               <span class="skill-icon">{{ skill.icon }}</span>
@@ -48,7 +48,7 @@
       </p>
 
       <div class="timeline">
-        @for (job of workHistory; track job; let i = $index) {
+        @for (job of workHistory; track job.company; let i = $index) {
           <div class="timeline-item"
                [style.animation-delay]="(300 + i * 100) + 'ms'">
 

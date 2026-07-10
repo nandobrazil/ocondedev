@@ -55,7 +55,7 @@
   <section class="stats-section animate-slide-in-up animation-delay-500">
     <div class="container">
       <div class="stats-grid">
-        @for (stat of stats; track stat) {
+        @for (stat of stats; track stat.label) {
           <div class="stat-card">
             <span class="stat-icon">{{ stat.icon }}</span>
             <div class="stat-content">
@@ -79,7 +79,7 @@
       </div>
 
       <div class="projects-grid">
-        @for (project of featuredProjects; track project; let i = $index) {
+        @for (project of featuredProjects; track project.title; let i = $index) {
           <div class="project-card animate-slide-in-up"
                [style.animation-delay]="(600 + i * 100) + 'ms'">
 
