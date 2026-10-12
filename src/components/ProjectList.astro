@@ -1,0 +1,161 @@
+---
+import ProjectItem from './ProjectItem.astro';
+import { categoryLabel, categoryOrder, type Project } from '../lib/projects';
+
+interface Props {
+  projects: Project[];
+  filterable?: boolean;
+  eagerCount?: number;
+}
+
+const { projects, filterable = false, eagerCount = 0 } = Astro.props;
+const counts = categoryOrder
+  .map((category) => ({
+    category,
+    label: categoryLabel[category],
+    count: projects.filter((project) => project.data.category === category).length,
+  }))
+  .filter((item) => item.count > 0);
+---
+
+{
+  filterable && (
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="Filtrar por categoria">
+        <button type="button" data-filter="all" aria-pressed="true">
+          Todos <span>{projects.length}</span>
+        </button>
+        {counts.map((item) => (
+          <button type="button" data-filter={item.category} aria-pressed="false">
+            {item.label} <span>{item.count}</span>
+          </button>
+        ))}
+      </div>
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.6-3.6" />
+        </svg>
+        <span class="visually-hidden">Buscar projeto</span>
+        <input id="project-search" type="search" placeholder="Buscar por nome ou stack" autocomplete="off" spellcheck="false" />
+      </label>
+    </div>
+  )
+}
+
+<div class="grid">
+  {projects.map((project, index) => <ProjectItem project={project} eager={index < eagerCount} />)}
+</div>
+
+{filterable && <p class="empty lead" id="projects-empty" hidden>Nenhum projeto com esse nome ou stack.</p>}
+
+{
+  filterable && (
+    <script>
+      const input = document.getElementById('project-search') as HTMLInputElement | null;
+      const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+      const items = [...document.querySelectorAll<HTMLElement>('.project[data-category]')];
+      const empty = document.getElementById('projects-empty');
+      const known = new Set(buttons.map((button) => button.dataset.filter));
+      let filter = location.hash.replace('#', '');
+      if (!known.has(filter)) filter = 'all';
+
+      const apply = () => {
+        const query = (input?.value ?? '').trim().toLowerCase();
+        let shown = 0;
+        for (const item of items) {
+          const matches =
+            (filter === 'all' || item.dataset.category === filter) &&
+            (!query || (item.dataset.search ?? '').includes(query));
+          item.hidden = !matches;
+          if (matches) shown++;
+        }
+        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
+        if (empty) empty.hidden = shown > 0;
+      };
+
+      buttons.forEach((button) =>
+        button.addEventListener('click', () => {
+          filter = button.dataset.filter ?? 'all';
+          history.replaceState(null, '', filter === 'all' ? location.pathname : `#${filter}`);
+          apply();
+        }),
+      );
+      input?.addEventListener('input', apply);
+      apply();
+    </script>
+  )
+}
+
+<style>
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .filters button {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .filters button span {
+    color: var(--accent);
+    margin-left: 0.15rem;
+  }
+
+  .filters button:hover,
+  .filters button[aria-pressed='true'] {
+    color: var(--ink);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    flex: 0 1 18rem;
+  }
+
+  .search:focus-within {
+    border-color: var(--accent);
+  }
+
+  .search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    outline: none;
+    font-size: 0.9375rem;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .empty {
+    margin-top: 2rem;
+  }
+</style>

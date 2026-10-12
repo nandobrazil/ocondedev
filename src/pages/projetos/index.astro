@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectList from '../../components/ProjectList.astro';
+import Section from '../../components/Section.astro';
+import { githubRepos } from '../../data/github';
+import { sortProjects } from '../../lib/projects';
+
+const projects = sortProjects(await getCollection('projects'));
+---
+
+<Base
+  title="Projetos — oconde.dev"
+  description="Tudo que Fernando Conde construiu e mantém: produtos no ar, laboratórios, a infra que os sustenta e as bibliotecas que publicou."
+>
+  <section class="container head">
+    <p class="badge">Projetos</p>
+    <h1>Tudo que construí e mantenho</h1>
+    <p class="lead">
+      Produtos no ar, laboratórios em andamento, a infra que sustenta tudo isso e as bibliotecas que publiquei. Cada um com
+      link, print e as decisões que valem contar.
+    </p>
+  </section>
+
+  <div class="container">
+    <ProjectList projects={projects} filterable eagerCount={3} />
+  </div>
+
+  <Section label="Código aberto" title="Mais no GitHub" lead="Repositórios públicos de outras épocas e de outras curiosidades.">
+    <ul class="repos">
+      {
+        githubRepos.map((repo) => (
+          <li class="card">
+            <a href={repo.url} target="_blank" rel="noopener">
+              <span class="name">{repo.name}</span>
+              <span class="description">{repo.description}</span>
+              <span class="language mono">{repo.language}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+</Base>
+
+<style>
+  .head {
+    display: grid;
+    gap: 1rem;
+    padding-block: 3.5rem 2.5rem;
+  }
+
+  .head h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .repos {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .repos a {
+    display: grid;
+    gap: 0.35rem;
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+  }
+
+  .repos li:hover {
+    border-color: var(--accent);
+  }
+
+  .name {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .description {
+    font-size: 0.9375rem;
+  }
+
+  .language {
+    color: var(--ink-soft);
+  }
+</style>

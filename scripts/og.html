@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        src: url('../node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2') format('woff2');
+        font-weight: 800;
+      }
+      @font-face {
+        font-family: 'Inter';
+        src: url('../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2') format('woff2');
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+        font-weight: 500;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        background: #0a1016;
+        color: #e8eef3;
+        font-family: 'Inter', system-ui, sans-serif;
+        position: relative;
+      }
+      .glow {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(520px 360px at 92% 8%, rgba(94, 224, 176, 0.22), transparent 65%),
+          radial-gradient(420px 320px at 4% 100%, rgba(109, 179, 242, 0.16), transparent 70%);
+      }
+      .content {
+        position: relative;
+        padding: 88px 96px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px;
+        border: 1px solid #2b3a48;
+        border-radius: 999px;
+        background: #10181f;
+        font-size: 22px;
+        font-weight: 500;
+        color: #94a3b3;
+        width: fit-content;
+      }
+      .badge::before {
+        content: '';
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #5ee0b0;
+        box-shadow: 0 0 0 6px rgba(94, 224, 176, 0.16);
+      }
+      h1 {
+        margin: 28px 0 0;
+        font-weight: 800;
+        font-size: 108px;
+        line-height: 1;
+        letter-spacing: -0.045em;
+      }
+      .title {
+        margin-top: 24px;
+        font-size: 34px;
+        font-weight: 500;
+        color: #94a3b3;
+        max-width: 900px;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 26px;
+        color: #94a3b3;
+      }
+      .footer strong {
+        color: #e8eef3;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="content">
+      <div>
+        <div class="badge">Engenheiro de software full-stack · Curitiba</div>
+        <h1>Fernando Conde</h1>
+        <div class="title">Produtos inteiros, do banco ao deploy, com a infra que eu mesmo opero.</div>
+      </div>
+      <div class="footer">
+        <span><strong>oconde</strong>.dev</span>
+        <span>produtos · infra · SDKs · 2 apps na App Store</span>
+      </div>
+    </div>
+  </body>
+</html>

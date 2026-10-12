@@ -45,6 +45,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          sed "s|${{ env.IMAGE }}:latest|${{ env.IMAGE }}:${{ github.sha }}|" infra/oconde.yaml > /tmp/oconde.yaml
+          scp -o StrictHostKeyChecking=accept-new -i ~/.ssh/deploy_key /tmp/oconde.yaml "$SSH_USER@$SSH_HOST:/tmp/oconde.yaml"
           ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" \
-            "kubectl -n $NAMESPACE set image deployment/$DEPLOYMENT $CONTAINER=${{ env.IMAGE }}:${{ github.sha }} && \
+            "kubectl apply -f /tmp/oconde.yaml && \
              kubectl -n $NAMESPACE rollout status deployment/$DEPLOYMENT --timeout=120s"

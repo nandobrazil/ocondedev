@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace">
+  <rect width="1440" height="900" fill="#142c36"/>
+  <g fill="#9db4b3" font-size="22">
+    <rect x="520" y="60" width="400" height="64" rx="14" fill="#1a3642" stroke="#264652" stroke-width="2"/>
+    <text x="720" y="100" text-anchor="middle" fill="#e8f0ea" font-size="26">Cloudflare · DNS, Workers, R2</text>
+  </g>
+  <g stroke="#f0b64a" stroke-width="3" fill="none">
+    <path d="M620 124 L400 190"/>
+    <path d="M820 124 L1040 190"/>
+  </g>
+  <g>
+    <rect x="100" y="190" width="600" height="460" rx="18" fill="#1a3642" stroke="#264652" stroke-width="2"/>
+    <text x="140" y="240" fill="#f0b64a" font-size="20" letter-spacing="2">PRODUÇÃO</text>
+    <text x="140" y="290" fill="#e8f0ea" font-size="30">k3s · Traefik · cert-manager</text>
+    <rect x="140" y="320" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="160" y="360" fill="#e8f0ea" font-size="24">Postgres 17 + WAL-G · restauração em ponto no tempo</text>
+    <rect x="140" y="400" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="160" y="440" fill="#e8f0ea" font-size="24">Redis 7 · um usuário ACL por app</text>
+    <rect x="140" y="480" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="160" y="520" fill="#e8f0ea" font-size="24">arvorede.link · Tredi · Radar · apps com usuário real</text>
+    <text x="140" y="610" fill="#5bd1a0" font-size="22">● backups contínuos no GCS, 34 dias de histórico</text>
+  </g>
+  <g>
+    <rect x="740" y="190" width="600" height="460" rx="18" fill="#1a3642" stroke="#264652" stroke-width="2"/>
+    <text x="780" y="240" fill="#6db3f2" font-size="20" letter-spacing="2">LABORATÓRIO</text>
+    <text x="780" y="290" fill="#e8f0ea" font-size="30">k3s · Traefik · cert-manager</text>
+    <rect x="780" y="320" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="800" y="360" fill="#e8f0ea" font-size="24">Postgres 17 e Redis 7 compartilhados</text>
+    <rect x="780" y="400" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="800" y="440" fill="#e8f0ea" font-size="24">labs, stagings, prévias e este site</text>
+    <rect x="780" y="480" width="520" height="64" rx="10" fill="#142c36" stroke="#264652"/>
+    <text x="800" y="520" fill="#e8f0ea" font-size="24">ambiente de trabalho: Claude Code, Docker, Playwright</text>
+    <text x="780" y="610" fill="#9db4b3" font-size="22">● um projeto que dá certo é promovido para a produção</text>
+  </g>
+  <g>
+    <rect x="100" y="700" width="1240" height="120" rx="18" fill="#1a3642" stroke="#264652" stroke-width="2"/>
+    <text x="140" y="748" fill="#f0b64a" font-size="20" letter-spacing="2">PIPELINE</text>
+    <text x="140" y="792" fill="#e8f0ea" font-size="26">push na main → GitHub Actions → imagem no GHCR → runner da VPS → kubectl apply → smoke → cartão no Hub</text>
+  </g>
+</svg>

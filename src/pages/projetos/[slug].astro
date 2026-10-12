@@ -1,0 +1,161 @@
+---
+import { getCollection, render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Shot from '../../components/Shot.astro';
+import StatusDot from '../../components/StatusDot.astro';
+import ProjectLinks from '../../components/ProjectLinks.astro';
+import ProjectList from '../../components/ProjectList.astro';
+import Section from '../../components/Section.astro';
+import { categoryLabel, relatedProjects, type Project } from '../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project, projects } }));
+}
+
+interface Props {
+  project: Project;
+  projects: Project[];
+}
+
+const { project, projects } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const og = await getImage({ src: data.cover, width: 1200, height: 630, format: 'jpeg' });
+const related = relatedProjects(projects, project);
+---
+
+<Base title={`${data.ogTitle ?? data.name} — Fernando Conde`} description={data.tagline} ogImage={og.src} ogType="article">
+  <article>
+    <header class="container head">
+      <p class="badge">{categoryLabel[data.category]}</p>
+      <h1>{data.name}</h1>
+      <p class="lead">{data.tagline}</p>
+      <ul class="meta">
+        <li><StatusDot status={data.status} /></li>
+        <li class="tag">{data.period}</li>
+        <li class="tag">{data.role}</li>
+      </ul>
+      <ProjectLinks project={project} size="regular" />
+    </header>
+
+    <div class:list={['container', 'shots', { 'with-mobile': Boolean(data.mobile) }]}>
+      <Shot
+        src={data.cover}
+        alt={`Tela do ${data.name} no desktop`}
+        widths={[720, 1080, 1440]}
+        sizes="(min-width: 74rem) 74rem, 100vw"
+        loading="eager"
+      />
+      {
+        data.mobile && (
+          <Shot
+            src={data.mobile}
+            alt={`Tela do ${data.name} no celular`}
+            widths={[390, 780]}
+            sizes="16rem"
+            loading="eager"
+            variant="phone"
+          />
+        )
+      }
+    </div>
+
+    <div class="container body">
+      <div class="prose">
+        <Content />
+      </div>
+      <aside class="side card">
+        <h2>Stack</h2>
+        <ul class="tags">{data.stack.map((item) => <li class="tag">{item}</li>)}</ul>
+      </aside>
+    </div>
+
+    {
+      data.gallery.length > 0 && (
+        <div class="container gallery">
+          {data.gallery.map((shot) => (
+            <Shot src={shot.src} alt={shot.caption} widths={[720, 1080]} sizes="(min-width: 74rem) 36rem, 100vw" caption={shot.caption} />
+          ))}
+        </div>
+      )
+    }
+  </article>
+
+  <Section label="Continue" title="Mais projetos">
+    <ProjectList projects={related} />
+  </Section>
+</Base>
+
+<style>
+  .head {
+    display: grid;
+    gap: 1rem;
+    padding-block: 3.5rem 2rem;
+  }
+
+  .head h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .shots {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+
+  .shots :global(.phone) {
+    margin-inline: auto;
+  }
+
+  .body {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+
+  .side {
+    padding: 1.25rem 1.5rem;
+    align-self: start;
+  }
+
+  .side h2 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.85rem;
+  }
+
+  .gallery {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr));
+  }
+
+  @media (min-width: 60rem) {
+    .with-mobile {
+      grid-template-columns: 1fr 16rem;
+    }
+
+    .body {
+      grid-template-columns: minmax(0, 42rem) 1fr;
+      gap: 4rem;
+    }
+
+    .side {
+      position: sticky;
+      top: 1.5rem;
+    }
+  }
+</style>

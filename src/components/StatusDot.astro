@@ -1,0 +1,45 @@
+---
+import { statusLabel, type ProjectStatus } from '../lib/projects';
+
+interface Props {
+  status: ProjectStatus;
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={['status', 'mono', status]}><i aria-hidden="true"></i>{statusLabel[status]}</span>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .status i {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--dot);
+  }
+
+  .live {
+    --dot: var(--status-live);
+  }
+
+  .preview {
+    --dot: var(--status-preview);
+  }
+
+  .frozen,
+  .archived {
+    --dot: var(--status-frozen);
+  }
+
+  .private {
+    --dot: var(--status-private);
+  }
+</style>

@@ -1,59 +1,23 @@
-# Ocondedev
+# oconde.dev
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+Portfólio do Fernando Conde: site estático em Astro servido por nginx em https://oconde.dev.
 
-## Development server
-
-To start a local development server, run:
+## Comandos
 
 ```bash
-ng serve
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # dist/
+npm run shots      # prints dos projetos (Playwright); `npm run shots -- radar` captura um só
+npm run smoke -- http://127.0.0.1:8089   # smoke contra a imagem Docker rodando
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Acrescentar um projeto
 
-## Code scaffolding
+1. Criar `src/content/projects/<slug>/index.md` com o frontmatter do schema em `src/content.config.ts`.
+2. Acrescentar a URL em `scripts/shots.config.mjs` e rodar `npm run shots -- <slug>`; ou colocar `desktop.svg` na pasta quando não há página pública.
+3. `npm run build` valida o schema.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Imagem e deploy
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`docker build -t ocondedev:local . && docker run -p 127.0.0.1:8089:80 ocondedev:local`. O push na `master` publica pelo GitHub Actions: imagem no GHCR, `kubectl apply -f infra/oconde.yaml` e `kubectl set image` no cluster da VPS de dev. Hosts, redirecionamentos e o Ingress estão descritos em `docs/superpowers/specs/2026-10-12-portfolio-oconde-dev-design.md`.

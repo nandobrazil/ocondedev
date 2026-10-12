@@ -1,0 +1,33 @@
+---
+import { linkLabel, type Project } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  size?: 'small' | 'regular';
+}
+
+const { project, size = 'small' } = Astro.props;
+const links = Object.entries(project.data.links).filter(([, url]) => url) as [keyof typeof linkLabel, string][];
+---
+
+{
+  links.length > 0 && (
+    <div class="links">
+      {links.map(([key, url], index) => (
+        <a class:list={['btn', { ghost: index > 0 || size === 'small', small: size === 'small' }]} href={url} target="_blank" rel="noopener">
+          {linkLabel[key]} <span class="arrow">↗</span>
+        </a>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .links {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

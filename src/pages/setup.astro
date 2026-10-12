@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import { setupSections } from '../data/setup';
+---
+
+<Base title="Setup — Fernando Conde" description="O hardware e as ferramentas que Fernando Conde usa para trabalhar todo dia.">
+  <section class="container head">
+    <p class="badge">Setup</p>
+    <h1>Com o que eu trabalho</h1>
+    <p class="lead">Hardware e ferramentas do dia a dia. Nada patrocinado; é o que está na mesa.</p>
+  </section>
+  <div class="container sections">
+    {
+      setupSections.map((section) => (
+        <section class="group card">
+          <h2>{section.title}</h2>
+          <dl>
+            {section.items.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>
+                  {item.link ? (
+                    <a href={item.link} target="_blank" rel="noopener">
+                      {item.value} <span class="arrow">↗</span>
+                    </a>
+                  ) : (
+                    item.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .head {
+    display: grid;
+    gap: 1rem;
+    padding-block: 3.5rem 2.5rem;
+  }
+
+  .head h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .sections {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  }
+
+  .group {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  dl {
+    display: grid;
+  }
+
+  dl div {
+    display: grid;
+    gap: 0.1rem;
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--line);
+  }
+
+  dl div:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  dt {
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+
+  dd a:hover {
+    color: var(--accent);
+  }
+
+  .arrow {
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+  }
+</style>

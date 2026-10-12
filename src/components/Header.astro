@@ -1,0 +1,87 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { href: '/projetos/', label: 'Projetos' },
+  { href: '/experiencia/', label: 'Experiência' },
+  { href: '/setup/', label: 'Setup' },
+  { href: '/contato/', label: 'Contato' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container row">
+    <a class="wordmark mono" href="/">oconde<span>.dev</span></a>
+    <nav aria-label="Principal" class="mono">
+      {
+        links.map((link) => (
+          <a href={link.href} aria-current={path.startsWith(link.href) ? 'page' : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 3.5rem;
+  }
+
+  .wordmark {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .wordmark span {
+    color: var(--ink-soft);
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding-block: 0.25rem;
+    border-bottom: 1px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--ink);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 40rem) {
+    .row {
+      flex-wrap: wrap;
+      padding-block: 0.6rem;
+      gap: 0.75rem 1rem;
+    }
+
+    nav {
+      order: 3;
+      width: 100%;
+      gap: 1rem;
+      overflow-x: auto;
+    }
+  }
+</style>

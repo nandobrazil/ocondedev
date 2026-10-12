@@ -1,0 +1,55 @@
+<button class="theme-toggle mono" type="button" aria-label="Alternar tema claro e escuro" title="Tema">
+  <span class="sun">claro</span>
+  <span class="moon">escuro</span>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const root = document.documentElement;
+  const isLight = () =>
+    root.dataset.theme === 'light' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: light)').matches);
+  button?.addEventListener('click', () => {
+    const next = isLight() ? 'dark' : 'light';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch (error) {}
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    padding: 0.2rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .moon {
+    display: none;
+  }
+
+  :global(:root[data-theme='light']) .sun {
+    display: none;
+  }
+
+  :global(:root[data-theme='light']) .moon {
+    display: inline;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :global(:root:not([data-theme='dark'])) .sun {
+      display: none;
+    }
+
+    :global(:root:not([data-theme='dark'])) .moon {
+      display: inline;
+    }
+  }
+</style>

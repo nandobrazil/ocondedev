@@ -1,0 +1,84 @@
+---
+import type { Job } from '../data/experience';
+
+interface Props {
+  jobs: Job[];
+  compact?: boolean;
+}
+
+const { jobs, compact = false } = Astro.props;
+---
+
+<ol class:list={['jobs', { compact }]}>
+  {
+    jobs.map((job) => (
+      <li>
+        <p class="period"><span class="tag">{job.period}</span></p>
+        <div class="content">
+          <h3>{job.company}</h3>
+          <p class="role">
+            {job.role} · {job.location} · {job.type}
+          </p>
+          {compact ? (
+            <p class="summary">{job.summary}</p>
+          ) : (
+            <ul class="bullets">
+              {job.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .jobs > li {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .jobs > li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .content {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .role,
+  .summary {
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  .bullets {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+    max-width: 40rem;
+  }
+
+  @media (min-width: 48rem) {
+    .jobs > li {
+      grid-template-columns: 11rem 1fr;
+      gap: 2rem;
+    }
+
+    .compact > li {
+      padding-block: 1.1rem;
+    }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+interface Props {
+  id?: string;
+  label: string;
+  title: string;
+  lead?: string;
+}
+
+const { id, label, title, lead } = Astro.props;
+---
+
+<section class="section container" id={id}>
+  <header class="section-head">
+    <p class="badge">{label}</p>
+    <h2>{title}</h2>
+    {lead && <p class="lead">{lead}</p>}
+  </header>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 2.25rem;
+  }
+
+  @media (min-width: 48rem) {
+    .section {
+      padding-block: 4.5rem;
+    }
+  }
+</style>

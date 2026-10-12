@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/profile';
+---
+
+<Base title="Contato — Fernando Conde" description="Fale com Fernando Conde por e-mail, LinkedIn ou GitHub.">
+  <section class="container head">
+    <p class="badge">Contato</p>
+    <h1>Vamos conversar</h1>
+    <p class="lead">
+      Projeto, consultoria, uma vaga ou só uma dúvida sobre algo que está aqui. Respondo por e-mail, geralmente no mesmo
+      dia.
+    </p>
+  </section>
+  <div class="container cards">
+    <div class="card item">
+      <p class="label">E-mail</p>
+      <p class="value"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+      <button class="btn ghost small copy" type="button" data-copy={profile.email}>Copiar e-mail</button>
+    </div>
+    <div class="card item">
+      <p class="label">LinkedIn</p>
+      <p class="value">linkedin.com/in/nandobrazil</p>
+      <a class="btn ghost small" href={profile.links.linkedin} target="_blank" rel="noopener">Abrir perfil <span class="arrow">↗</span></a>
+    </div>
+    <div class="card item">
+      <p class="label">GitHub</p>
+      <p class="value">github.com/nandobrazil</p>
+      <a class="btn ghost small" href={profile.links.github} target="_blank" rel="noopener">Ver repositórios <span class="arrow">↗</span></a>
+    </div>
+  </div>
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+</Base>
+
+<script>
+  const toast = document.getElementById('toast');
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        if (toast) {
+          toast.textContent = 'E-mail copiado';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+      } catch (error) {
+        if (toast) toast.textContent = 'Não deu para copiar; selecione o e-mail';
+      }
+    });
+  });
+</script>
+
+<style>
+  .head {
+    display: grid;
+    gap: 1rem;
+    padding-block: 3.5rem 2.5rem;
+  }
+
+  .head h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .cards {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .item {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    justify-items: start;
+    padding: 1.5rem;
+  }
+
+  .label {
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+
+  .value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .value a:hover {
+    color: var(--accent);
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translate(-50%, 1rem);
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+</style>

@@ -1,0 +1,77 @@
+:root {
+  --ground: #0a1016;
+  --surface: #10181f;
+  --surface-raised: #16212b;
+  --line: #1f2c38;
+  --line-strong: #2b3a48;
+  --ink: #e8eef3;
+  --ink-soft: #94a3b3;
+  --accent: #5ee0b0;
+  --accent-soft: rgba(94, 224, 176, 0.14);
+  --on-accent: #06231a;
+  --blue: #6db3f2;
+  --status-live: #5ee0b0;
+  --status-preview: #f0b64a;
+  --status-frozen: #7f8c99;
+  --status-private: #b38cf5;
+  --glow-1: rgba(94, 224, 176, 0.16);
+  --glow-2: rgba(109, 179, 242, 0.12);
+  --card-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 60%);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --radius-l: 20px;
+  --radius-m: 14px;
+  --radius-s: 8px;
+  --container: 74rem;
+  --gutter: 1.25rem;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --ground: #f5f7f9;
+    --surface: #ffffff;
+    --surface-raised: #eef2f5;
+    --line: #dde4ea;
+    --line-strong: #c9d3dc;
+    --ink: #0f1720;
+    --ink-soft: #55687a;
+    --accent: #0f9d6e;
+    --accent-soft: rgba(15, 157, 110, 0.12);
+    --on-accent: #ffffff;
+    --blue: #2a7bd0;
+    --status-live: #0f9d6e;
+    --status-preview: #c98a0a;
+    --status-frozen: #6d7d8c;
+    --status-private: #7c4fd6;
+    --glow-1: rgba(15, 157, 110, 0.12);
+    --glow-2: rgba(42, 123, 208, 0.1);
+    --card-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 60%);
+    --shadow: 0 24px 60px -36px rgba(15, 23, 32, 0.35);
+    color-scheme: light;
+  }
+}
+
+:root[data-theme='light'] {
+  --ground: #f5f7f9;
+  --surface: #ffffff;
+  --surface-raised: #eef2f5;
+  --line: #dde4ea;
+  --line-strong: #c9d3dc;
+  --ink: #0f1720;
+  --ink-soft: #55687a;
+  --accent: #0f9d6e;
+  --accent-soft: rgba(15, 157, 110, 0.12);
+  --on-accent: #ffffff;
+  --blue: #2a7bd0;
+  --status-live: #0f9d6e;
+  --status-preview: #c98a0a;
+  --status-frozen: #6d7d8c;
+  --status-private: #7c4fd6;
+  --glow-1: rgba(15, 157, 110, 0.12);
+  --glow-2: rgba(42, 123, 208, 0.1);
+  --card-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 60%);
+  --shadow: 0 24px 60px -36px rgba(15, 23, 32, 0.35);
+  color-scheme: light;
+}

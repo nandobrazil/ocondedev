@@ -1,0 +1,7 @@
+node_modules
+dist
+.git
+.astro
+.superpowers
+docs
+scripts/.tmp

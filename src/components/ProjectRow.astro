@@ -1,0 +1,103 @@
+---
+import Shot from './Shot.astro';
+import StatusDot from './StatusDot.astro';
+import ProjectLinks from './ProjectLinks.astro';
+import { categoryLabel, type Project } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { data } = project;
+const href = `/projetos/${project.id}/`;
+---
+
+<article class:list={['row', { flip: index % 2 === 1 }]}>
+  <a class="shot-link" href={href} tabindex="-1" aria-hidden="true">
+    <Shot
+      src={data.cover}
+      alt={`Tela do ${data.name}`}
+      widths={[640, 960, 1280]}
+      sizes="(min-width: 60rem) 40rem, 100vw"
+      loading={index < 2 ? 'eager' : 'lazy'}
+      variant="thumb"
+    />
+  </a>
+  <div class="text">
+    <p class="kicker mono">{String(index + 1).padStart(2, '0')} · {categoryLabel[data.category]}</p>
+    <h3><a href={href}>{data.name}</a></h3>
+    <p class="tagline">{data.tagline}</p>
+    <p class="status-line"><StatusDot status={data.status} /><span class="sep">·</span><span class="period">{data.period}</span></p>
+    <ul class="tags">{data.stack.slice(0, 5).map((item) => <li class="tag">{item}</li>)}</ul>
+    <div class="actions">
+      <a class="btn small" href={href}>Detalhes <span class="arrow">→</span></a>
+      <ProjectLinks project={project} />
+    </div>
+  </div>
+</article>
+
+<style>
+  .row {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 2rem;
+  }
+
+  .row + .row {
+    border-top: 1px solid var(--line);
+  }
+
+  .text {
+    display: grid;
+    gap: 0.85rem;
+    align-content: center;
+  }
+
+  .kicker {
+    color: var(--accent);
+  }
+
+  h3 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  h3 a:hover {
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+    max-width: 32rem;
+  }
+
+  .status-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  @media (min-width: 60rem) {
+    .row {
+      grid-template-columns: 1.25fr 1fr;
+      gap: 3.5rem;
+      padding-block: 3rem;
+    }
+
+    .flip .shot-link {
+      order: 2;
+    }
+  }
+</style>

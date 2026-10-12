@@ -1,0 +1,83 @@
+---
+import { levelLabel, skillGroups } from '../data/skills';
+---
+
+<div class="groups">
+  {
+    skillGroups.map((group) => (
+      <section class="group card">
+        <h3>{group.title}</h3>
+        <ul>
+          {group.items.map((skill) => (
+            <li>
+              <div class="row">
+                <strong>{skill.name}</strong>
+                <span class:list={['level', skill.level]}>{levelLabel[skill.level]}</span>
+              </div>
+              <p>{skill.note}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .groups {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .group {
+    padding: 1.5rem;
+  }
+
+  h3 {
+    margin-bottom: 1.1rem;
+    font-size: 1.125rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .level {
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  .level.daily {
+    color: var(--accent);
+    border-color: transparent;
+    background: var(--accent-soft);
+  }
+
+  .level.solid {
+    color: var(--blue);
+  }
+
+  p {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    text-wrap: pretty;
+  }
+</style>
