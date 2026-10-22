@@ -6,6 +6,7 @@ export const targets = [
   { slug: 'radar-nestjs', url: 'https://radar.oconde.dev/docs/sdk/nestjs/', dest: 'radar/sdk-nestjs.webp' },
   { slug: 'radar-source', url: 'https://radar.oconde.dev/docs/sdk/source-context/', dest: 'radar/source-context.webp' },
   { slug: 'devtools', url: 'https://oconde.dev' },
+  { slug: 'toolbelt', url: 'https://toolbelt.oconde.dev' },
   { slug: 'devtools-cpf', url: 'https://oconde.dev/geradores/cpf', dest: 'devtools/gerador-cpf.webp' },
   { slug: 'devtools-cnpj', url: 'https://oconde.dev/validadores/cnpj', dest: 'devtools/validador-cnpj.webp' },
   { slug: 'followflow', url: 'https://seguimores.oconde.dev' },
