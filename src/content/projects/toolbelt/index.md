@@ -17,6 +17,7 @@ links:
   site: https://toolbelt.oconde.dev
 cover: ./desktop.webp
 mobile: ./mobile.webp
+featured: 7
 order: 4
 ---
 

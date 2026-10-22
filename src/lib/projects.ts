@@ -37,7 +37,7 @@ export const featuredProjects = (projects: Project[]) =>
   projects
     .filter((project) => project.data.featured !== undefined)
     .sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0))
-    .slice(0, 6);
+    .slice(0, 7);
 
 export const relatedProjects = (projects: Project[], current: Project, count = 3) => {
   const others = sortProjects(projects).filter((project) => project.id !== current.id);
