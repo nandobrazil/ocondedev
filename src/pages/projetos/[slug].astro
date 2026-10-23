@@ -43,6 +43,7 @@ const related = relatedProjects(projects, project);
     <div class:list={['container', 'shots', { 'with-mobile': Boolean(data.mobile) }]}>
       <Shot
         src={data.cover}
+        srcLight={data.coverLight}
         alt={`Tela do ${data.name} no desktop`}
         widths={[720, 1080, 1440]}
         sizes="(min-width: 74rem) 74rem, 100vw"
@@ -52,6 +53,7 @@ const related = relatedProjects(projects, project);
         data.mobile && (
           <Shot
             src={data.mobile}
+            srcLight={data.mobileLight}
             alt={`Tela do ${data.name} no celular`}
             widths={[390, 780]}
             sizes="16rem"

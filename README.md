@@ -15,7 +15,7 @@ npm run smoke -- http://127.0.0.1:8089   # smoke contra a imagem Docker rodando
 ## Acrescentar um projeto
 
 1. Criar `src/content/projects/<slug>/index.md` com o frontmatter do schema em `src/content.config.ts`.
-2. Acrescentar a URL em `scripts/shots.config.mjs` e rodar `npm run shots -- <slug>`; ou colocar `desktop.svg` na pasta quando não há página pública.
+2. Acrescentar a URL em `scripts/shots.config.mjs` e rodar `npm run shots -- <slug>`; ou colocar `desktop.svg` na pasta quando não há página pública. Com `themes: true` o script também tira `desktop-light.webp` e `mobile-light.webp`; apontados em `coverLight` e `mobileLight`, os prints acompanham o tema do site.
 3. `npm run build` valida o schema.
 
 ## Imagem e deploy

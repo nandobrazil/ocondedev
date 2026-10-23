@@ -1,6 +1,6 @@
 export const targets = [
   { slug: 'arvorede-link', url: 'https://arvorede.link' },
-  { slug: 'tredi', url: 'https://tredi.oconde.dev' },
+  { slug: 'tredi', url: 'https://tredi.oconde.dev', themes: true },
   { slug: 'radar', url: 'https://radar.oconde.dev/docs/' },
   { slug: 'radar-status', url: 'https://status.oconde.dev/radar', dest: 'radar/status.webp', height: 560 },
   { slug: 'radar-nestjs', url: 'https://radar.oconde.dev/docs/sdk/nestjs/', dest: 'radar/sdk-nestjs.webp' },

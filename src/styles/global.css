@@ -269,3 +269,25 @@ button {
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }
+
+.only-light {
+  display: none !important;
+}
+
+:root[data-theme='light'] .only-light {
+  display: block !important;
+}
+
+:root[data-theme='light'] .only-dark {
+  display: none !important;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .only-light {
+    display: block !important;
+  }
+
+  :root:not([data-theme='dark']) .only-dark {
+    display: none !important;
+  }
+}

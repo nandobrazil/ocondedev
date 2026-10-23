@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { profile } from '../data/profile';
 import radarCover from '../content/projects/radar/desktop.webp';
 import trediMobile from '../content/projects/tredi/mobile.webp';
+import trediMobileLight from '../content/projects/tredi/mobile-light.webp';
 import arvoredeCover from '../content/projects/arvorede-link/desktop.webp';
 ---
 
@@ -29,7 +30,8 @@ import arvoredeCover from '../content/projects/arvorede-link/desktop.webp';
         <Image src={radarCover} alt="" widths={[640, 960]} sizes="(min-width: 60rem) 34rem, 90vw" loading="eager" />
       </div>
       <div class="phone">
-        <Image src={trediMobile} alt="" widths={[300, 600]} sizes="9rem" loading="eager" />
+        <Image class="only-dark" src={trediMobile} alt="" widths={[300, 600]} sizes="9rem" loading="eager" />
+        <Image class="only-light" src={trediMobileLight} alt="" widths={[300, 600]} sizes="9rem" loading="eager" />
       </div>
     </div>
   </div>

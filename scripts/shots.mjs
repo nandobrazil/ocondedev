@@ -14,10 +14,11 @@ async function writeWebp(png, path, quality) {
   await writeFile(path, await sharp(png).webp({ quality }).toBuffer());
 }
 
-async function capture(browser, target) {
+async function capture(browser, target, colorScheme = 'dark') {
   const quality = target.quality ?? 82;
+  const suffix = colorScheme === 'light' ? '-light' : '';
   const context = await browser.newContext({
-    colorScheme: 'dark',
+    colorScheme,
     locale: 'pt-BR',
     viewport: { width: 1440, height: target.height ?? 900 },
     deviceScaleFactor: 1,
@@ -28,12 +29,12 @@ async function capture(browser, target) {
   for (const selector of target.hide ?? []) {
     await page.locator(selector).evaluateAll((elements) => elements.forEach((element) => element.remove()));
   }
-  const desktopPath = target.dest ? resolve(projectsDir, target.dest) : resolve(projectsDir, target.slug, 'desktop.webp');
+  const desktopPath = target.dest ? resolve(projectsDir, target.dest) : resolve(projectsDir, target.slug, `desktop${suffix}.webp`);
   await writeWebp(await page.screenshot({ type: 'png' }), desktopPath, quality);
   if (!target.desktopOnly && !target.dest) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(800);
-    await writeWebp(await page.screenshot({ type: 'png' }), resolve(projectsDir, target.slug, 'mobile.webp'), quality);
+    await writeWebp(await page.screenshot({ type: 'png' }), resolve(projectsDir, target.slug, `mobile${suffix}.webp`), quality);
   }
   await context.close();
 }
@@ -51,6 +52,7 @@ let failed = 0;
 for (const target of selected) {
   try {
     await capture(browser, target);
+    if (target.themes) await capture(browser, target, 'light');
     console.log('ok  ', target.slug);
   } catch (error) {
     failed++;

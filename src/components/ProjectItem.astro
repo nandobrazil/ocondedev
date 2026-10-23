@@ -19,6 +19,7 @@ const search = [data.name, data.tagline, ...data.stack].join(' ').toLowerCase();
   <a class="thumb" href={href} tabindex="-1" aria-hidden="true">
     <Shot
       src={data.cover}
+      srcLight={data.coverLight}
       alt={`Tela do ${data.name}`}
       widths={[480, 720, 960]}
       sizes="(min-width: 48rem) 28rem, 100vw"
