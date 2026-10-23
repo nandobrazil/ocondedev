@@ -15,6 +15,7 @@ stack:
   - Python
 links:
   site: https://toolbelt.oconde.dev
+  repo: https://github.com/nandobrazil/toolbelt
 cover: ./desktop.webp
 mobile: ./mobile.webp
 featured: 7
@@ -44,4 +45,7 @@ O app se atualiza sozinho: confere uma vez por dia se há versão nova, avisa no
 - Distribuição fora da App Store, porque o sandbox dela bloqueia a Acessibilidade de que o alternador e a barra dependem. O caminho é Developer ID, notarização da Apple, binário universal e DMG.
 - O atualizador é próprio, em vez do Sparkle: menos memória e o aviso integrado ao painel. A segurança vem do hash no manifesto e da exigência de assinatura do mesmo desenvolvedor.
 - O app consulta um endereço no meu domínio, que redireciona para onde os arquivos estiverem; dá para trocar a hospedagem sem lançar versão nova.
-- A landing é uma página estática num nginx de 11 MiB no cluster de desenvolvimento, publicada a cada push.
+- A landing é uma página estática num nginx no cluster de produção, com imagem por commit e rollback de um clique.
+- Release sem mão humana: subir a versão na `main` faz o GitHub Actions testar no macOS 14, 15 e 26, assinar, notarizar, publicar o DMG e atualizar o cask do Homebrew.
+- Falhas e travamentos vão para o [Radar](/projetos/radar/), outro projeto meu, só com a permissão de quem usa.
+- Código aberto, sob GPL-3.0: quem dá Acessibilidade a um app precisa poder ler o que ele faz.
