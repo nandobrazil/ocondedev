@@ -1,0 +1,55 @@
+---
+import { stackColor, stackInitials } from '../lib/stack';
+
+interface Props {
+  stack: string[];
+  max?: number;
+}
+
+const { stack, max = 3 } = Astro.props;
+const shown = stack.slice(0, max);
+const rest = stack.length - shown.length;
+---
+
+<span class="cluster" title={stack.join(', ')}>
+  <span class="visually-hidden">{stack.join(', ')}</span>
+  {
+    shown.map((name) => (
+      <span class="chip" style={`--chip: ${stackColor(name)}`} aria-hidden="true">
+        {stackInitials(name)}
+      </span>
+    ))
+  }
+  {rest > 0 && <span class="chip more" aria-hidden="true">+{rest}</span>}
+</span>
+
+<style>
+  .cluster {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .chip {
+    display: grid;
+    place-items: center;
+    width: 1.625rem;
+    height: 1.625rem;
+    margin-left: -0.45rem;
+    border-radius: 50%;
+    border: 2px solid var(--canvas);
+    background: var(--chip);
+    color: #ffffff;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .chip:first-of-type {
+    margin-left: 0;
+  }
+
+  .more {
+    background: var(--band);
+    color: var(--ink-soft);
+  }
+</style>

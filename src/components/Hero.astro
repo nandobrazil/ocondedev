@@ -1,167 +1,456 @@
 ---
-import { Image } from 'astro:assets';
+import StatusPill from './StatusPill.astro';
+import StackCluster from './StackCluster.astro';
 import { profile } from '../data/profile';
-import radarCover from '../content/projects/radar/desktop.webp';
-import trediMobile from '../content/projects/tredi/mobile.webp';
-import trediMobileLight from '../content/projects/tredi/mobile-light.webp';
-import arvoredeCover from '../content/projects/arvorede-link/desktop.webp';
+import { projectHost, type Project } from '../lib/projects';
+import { stackColor } from '../lib/stack';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+const liveCount = projects.filter((project) => project.data.status === 'live').length;
 ---
 
 <section class="hero">
   <div class="container grid">
     <div class="text">
-      <p class="badge">{profile.title} · {profile.city}</p>
-      <h1>{profile.name}</h1>
-      <p class="lead">{profile.intro[0]}</p>
-      <p class="secondary">{profile.intro[1]}</p>
+      <p class="pill brand">
+        <span class="spark" aria-hidden="true"></span>
+        {profile.title} · {profile.city}
+      </p>
+      <h1>
+        {profile.headline.before}<span class="gradient-text">{profile.headline.accent}</span>{profile.headline.after}
+      </h1>
+      <ul class="checks">
+        {
+          profile.highlights.map((item) => (
+            <li>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+              <span><strong>{item.title}</strong> {item.detail}</span>
+            </li>
+          ))
+        }
+      </ul>
       <div class="actions">
-        <a class="btn" href="/projetos/">Ver projetos <span class="arrow">→</span></a>
-        <a class="btn ghost" href="/contato/">Contato</a>
+        <span class="conic">
+          <a class="btn primary" href="/projetos/">
+            Ver os projetos <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </span>
+        <a class="btn ghost" href="/contato/">Falar comigo</a>
       </div>
-      <ul class="facts" aria-label="Números">
-        {profile.stats.map((stat) => <li><strong>{stat.value}</strong> {stat.label}</li>)}
+      <ul class="focus" aria-label="Foco atual">
+        {profile.focus.map((item) => <li class="pill">{item}</li>)}
       </ul>
     </div>
-    <div class="mockup" aria-hidden="true">
-      <div class="screen back">
-        <Image src={arvoredeCover} alt="" widths={[640, 960]} sizes="(min-width: 60rem) 34rem, 90vw" loading="eager" />
+
+    <figure class="app" aria-labelledby="app-title">
+      <div class="app-bar">
+        <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="crumbs mono">oconde.dev <span aria-hidden="true">/</span> produção</span>
       </div>
-      <div class="screen front">
-        <Image src={radarCover} alt="" widths={[640, 960]} sizes="(min-width: 60rem) 34rem, 90vw" loading="eager" />
+      <div class="app-head">
+        <div>
+          <p class="eyebrow">Espaço de trabalho</p>
+          <h2 id="app-title">No ar agora</h2>
+        </div>
+        <span class="count"><b>{liveCount}</b> de {projects.length} no ar</span>
       </div>
-      <div class="phone">
-        <Image class="only-dark" src={trediMobile} alt="" widths={[300, 600]} sizes="9rem" loading="eager" />
-        <Image class="only-light" src={trediMobileLight} alt="" widths={[300, 600]} sizes="9rem" loading="eager" />
+      <div class="tabs" aria-hidden="true">
+        <span class="active">Lista</span>
+        <span>Quadro</span>
+        <span>Uptime</span>
       </div>
-    </div>
+      <div class="table" role="table" aria-label="Projetos em destaque">
+        <div class="tr th" role="row">
+          <span role="columnheader">Projeto</span>
+          <span role="columnheader" class="col-host">Onde</span>
+          <span role="columnheader" class="col-stack">Stack</span>
+          <span role="columnheader">Status</span>
+        </div>
+        {
+          projects.map((project) => (
+            <a class="tr" role="row" href={`/projetos/${project.id}/`}>
+              <span class="name" role="cell">
+                <span class="icon" style={`--icon: ${stackColor(project.data.name)}`} aria-hidden="true">
+                  {project.data.name[0].toUpperCase()}
+                </span>
+                {project.data.name}
+              </span>
+              <span class="col-host mono" role="cell">{projectHost(project)}</span>
+              <span class="col-stack" role="cell"><StackCluster stack={project.data.stack} /></span>
+              <span role="cell"><StatusPill status={project.data.status} /></span>
+            </a>
+          ))
+        }
+      </div>
+      <figcaption class="app-foot">
+        <span class="beat" aria-hidden="true"></span>
+        Dois clusters que eu mesmo opero, vigiados pelo
+        <a class="text-link" href="https://status.oconde.dev/radar" target="_blank" rel="noopener">Radar</a>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    padding-block: 4rem 3rem;
-    overflow: hidden;
+    padding-block: 3.5rem 4rem;
   }
 
   .hero::before {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: 0 0 auto;
+    height: 38rem;
     background:
-      radial-gradient(42rem 26rem at 85% 10%, var(--glow-1), transparent 65%),
-      radial-gradient(30rem 22rem at 10% 90%, var(--glow-2), transparent 70%);
+      radial-gradient(40rem 22rem at 85% 10%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 70%),
+      radial-gradient(30rem 20rem at 10% 0%, color-mix(in srgb, var(--link) 9%, transparent), transparent 70%);
     pointer-events: none;
+    z-index: -1;
   }
 
   .grid {
-    position: relative;
     display: grid;
-    gap: 3rem;
+    gap: 3.5rem;
     align-items: center;
   }
 
   .text {
     display: grid;
-    gap: 1.25rem;
+    gap: 1.75rem;
+    justify-items: start;
+    min-width: 0;
   }
 
-  .secondary {
+  .spark {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--brand);
+  }
+
+  h1 {
+    font-size: clamp(2.625rem, 5.6vw, 4.25rem);
+    max-width: 17ch;
+  }
+
+  .checks {
+    display: grid;
+    gap: 0.7rem;
+    font-size: 1rem;
     color: var(--ink-soft);
-    max-width: 38rem;
+  }
+
+  .checks li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
     text-wrap: pretty;
+  }
+
+  .checks svg {
+    flex: none;
+    margin-top: 0.15rem;
+    color: var(--link);
+  }
+
+  .checks strong {
+    color: var(--ink);
+    font-weight: 700;
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.75rem;
-    margin-top: 0.25rem;
   }
 
-  .facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    margin-top: 0.75rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line);
-    color: var(--ink-soft);
+  .btn.primary {
+    padding: 0.8rem 1.5rem;
+    border: 0;
     font-size: 0.9375rem;
   }
 
-  .facts strong {
-    color: var(--ink);
+  .btn.primary:hover {
+    opacity: 1;
+  }
+
+  .actions .ghost {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .focus {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .focus .pill {
+    background: var(--card);
+    border-color: var(--line);
+    font-family: var(--font-display);
     font-weight: 700;
   }
 
-  .mockup {
-    position: relative;
-    display: none;
-    aspect-ratio: 5 / 4;
-  }
-
-  .screen {
-    position: absolute;
-    width: 86%;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-m);
+  .app {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-large);
+    background: var(--canvas);
+    box-shadow: var(--shadow-app);
     overflow: hidden;
-    background: var(--surface);
-    box-shadow: var(--shadow);
+    font-size: 0.875rem;
   }
 
-  .screen :global(img) {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
+  .app-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
   }
 
-  .back {
-    top: 0;
-    right: 0;
-    opacity: 0.75;
-    transform: scale(0.94);
-    transform-origin: top right;
+  .lights {
+    display: flex;
+    gap: 0.35rem;
   }
 
-  .front {
-    top: 14%;
-    left: 0;
+  .lights i {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--line-strong);
   }
 
-  .phone {
-    position: absolute;
-    right: 6%;
-    bottom: 0;
-    width: 24%;
-    border: 1px solid var(--line-strong);
-    border-radius: 1.4rem;
-    padding: 0.3rem;
-    background: var(--surface-raised);
-    box-shadow: var(--shadow);
+  .crumbs {
+    color: var(--ink-mute);
+    font-size: 0.75rem;
   }
 
-  .phone :global(img) {
-    width: 100%;
-    height: auto;
-    border-radius: 1.1rem;
+  .crumbs span {
+    margin-inline: 0.3rem;
   }
 
-  @media (min-width: 60rem) {
+  .app-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.25rem 0.75rem;
+  }
+
+  .app-head h2 {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  .count {
+    color: var(--ink-mute);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  .count b {
+    color: var(--status-live-ink);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 1.25rem;
+    padding-inline: 1.25rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: var(--ink-mute);
+  }
+
+  .tabs span {
+    padding-block: 0.55rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+
+  .tabs .active {
+    color: var(--link);
+    border-bottom-color: var(--link);
+  }
+
+  .table {
+    display: grid;
+  }
+
+  .tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    transition: background-color 0.15s ease;
+  }
+
+  a.tr:hover {
+    background: var(--hover-fill);
+  }
+
+  .th {
+    padding-block: 0.5rem;
+    color: var(--ink-mute);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .col-host,
+  .col-stack {
+    display: none;
+  }
+
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 600;
+    color: var(--ink);
+    min-width: 0;
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 7px;
+    background: var(--icon);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .tr .mono {
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.85rem 1.25rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+  }
+
+  .beat {
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.2rem;
+    border-radius: 50%;
+    background: var(--status-live);
+  }
+
+  @media (min-width: 36rem) {
+    .tr {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr) auto;
+    }
+
+    .col-host {
+      display: block;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .tr {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) 4.75rem 6.25rem;
+    }
+
+    .col-stack {
+      display: block;
+    }
+  }
+
+  @media (min-width: 64rem) {
     .hero {
-      padding-block: 5.5rem 4.5rem;
+      padding-block: 5rem 5.5rem;
     }
 
     .grid {
-      grid-template-columns: 1.05fr 1fr;
-      gap: 4rem;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 3.5rem;
     }
 
-    .mockup {
-      display: block;
+    .tr {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) 4.75rem 6.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .text > *,
+    .app {
+      animation: rise 0.6s var(--ease-settle) both;
+    }
+
+    .text > :nth-child(2) {
+      animation-delay: 0.05s;
+    }
+
+    .text > :nth-child(3) {
+      animation-delay: 0.1s;
+    }
+
+    .text > :nth-child(4) {
+      animation-delay: 0.15s;
+    }
+
+    .text > :nth-child(5) {
+      animation-delay: 0.2s;
+    }
+
+    .app {
+      animation-delay: 0.2s;
+    }
+
+    .table .tr:not(.th) {
+      animation: rise 0.45s var(--ease-settle) both;
+    }
+
+    .table .tr:nth-child(2) { animation-delay: 0.35s; }
+    .table .tr:nth-child(3) { animation-delay: 0.4s; }
+    .table .tr:nth-child(4) { animation-delay: 0.45s; }
+    .table .tr:nth-child(5) { animation-delay: 0.5s; }
+    .table .tr:nth-child(6) { animation-delay: 0.55s; }
+    .table .tr:nth-child(7) { animation-delay: 0.6s; }
+    .table .tr:nth-child(8) { animation-delay: 0.65s; }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
 </style>

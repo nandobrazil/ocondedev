@@ -2,10 +2,13 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import CompanyStrip from '../components/CompanyStrip.astro';
+import StatsBand from '../components/StatsBand.astro';
 import Section from '../components/Section.astro';
 import ProjectRow from '../components/ProjectRow.astro';
 import SkillGroups from '../components/SkillGroups.astro';
 import Timeline from '../components/Timeline.astro';
+import ContactCta from '../components/ContactCta.astro';
 import { profile } from '../data/profile';
 import { experience } from '../data/experience';
 import { featuredProjects } from '../lib/projects';
@@ -28,78 +31,58 @@ const jsonLd = {
   description="Fernando Conde, engenheiro de software full-stack em Curitiba. Produtos completos do banco ao deploy: Angular, .NET, Node, SvelteKit, Go, Kubernetes, dois apps na App Store e agentes de IA."
   jsonLd={jsonLd}
 >
-  <Hero />
+  <Hero projects={featured} />
+  <CompanyStrip />
+  <StatsBand />
 
-  <Section label="Projetos" title="Em destaque" lead="Sete coisas no ar hoje que eu construí de ponta a ponta: produto, código, infra e operação.">
-    <div class="rows">
+  <Section
+    id="destaque"
+    eyebrow="Em destaque"
+    title="Construído e operado de ponta a ponta"
+    lead="Sete coisas no ar hoje que eu construí inteiras: produto, código, infra e operação."
+    align="center"
+  >
+    <div class="cards">
       {featured.map((project, index) => <ProjectRow project={project} index={index} />)}
     </div>
     <p class="more">
-      <a class="btn ghost" href="/projetos/">Todos os projetos <span class="arrow">→</span></a>
+      <a class="btn ghost" href="/projetos/">Ver todos os projetos <span class="arrow" aria-hidden="true">→</span></a>
     </p>
   </Section>
 
-  <Section label="Stack" title="O que eu sei" lead="Agrupado por área, com o quanto uso cada coisa e onde ela está em uso de verdade.">
-    <SkillGroups />
-  </Section>
+  <SkillGroups
+    title="O que eu uso, e onde está rodando"
+    lead="Agrupado por área, com o quanto uso cada coisa e onde ela está em uso de verdade."
+  />
 
-  <Section label="Experiência" title="Trajetória" lead="Onze anos entre setor público, saúde, banco, logística e a minha própria consultoria.">
+  <Section
+    id="trajetoria"
+    eyebrow="Trajetória"
+    title="Onze anos, cinco setores"
+    lead="Setor público, saúde, banco, logística e a minha própria consultoria."
+  >
     <Timeline jobs={experience.slice(0, 5)} compact />
-    <p class="more">
-      <a class="btn ghost" href="/experiencia/">Experiência completa <span class="arrow">→</span></a>
+    <p class="more start">
+      <a class="btn ghost" href="/experiencia/">Experiência completa <span class="arrow" aria-hidden="true">→</span></a>
     </p>
   </Section>
 
-  <section class="container cta-wrap">
-    <div class="cta card">
-      <div>
-        <p class="badge">Contato</p>
-        <h2>Vamos conversar?</h2>
-        <p class="lead">Projetos, consultoria ou uma vaga em que isso tudo faça sentido.</p>
-      </div>
-      <div class="actions">
-        <a class="btn" href={`mailto:${profile.email}`}>{profile.email}</a>
-        <a class="btn ghost" href={profile.links.linkedin} target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a>
-      </div>
-    </div>
-  </section>
+  <ContactCta />
 </Base>
 
 <style>
-  .rows {
+  .cards {
     display: grid;
+    gap: 1.25rem;
   }
 
   .more {
-    margin-top: 2rem;
-  }
-
-  .cta-wrap {
-    padding-block: 1rem 2rem;
-  }
-
-  .cta {
-    display: grid;
-    gap: 1.5rem;
-    padding: 2rem;
-  }
-
-  .cta h2 {
-    margin-block: 0.75rem 0.5rem;
-  }
-
-  .actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
   }
 
-  @media (min-width: 48rem) {
-    .cta {
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      padding: 2.75rem;
-    }
+  .more.start {
+    justify-content: flex-start;
   }
 </style>

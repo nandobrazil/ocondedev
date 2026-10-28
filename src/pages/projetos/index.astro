@@ -7,15 +7,16 @@ import { githubRepos } from '../../data/github';
 import { sortProjects } from '../../lib/projects';
 
 const projects = sortProjects(await getCollection('projects'));
+const live = projects.filter((project) => project.data.status === 'live').length;
 ---
 
 <Base
   title="Projetos — oconde.dev"
   description="Tudo que Fernando Conde construiu e mantém: produtos no ar, laboratórios, a infra que os sustenta e as bibliotecas que publicou."
 >
-  <section class="container head">
-    <p class="badge">Projetos</p>
-    <h1>Tudo que construí e mantenho</h1>
+  <section class="container page-head">
+    <p class="pill brand"><b>{live}</b> no ar · {projects.length} projetos</p>
+    <h1>Tudo que <span class="gradient-text">construí</span> e mantenho</h1>
     <p class="lead">
       Produtos no ar, laboratórios em andamento, a infra que sustenta tudo isso e as bibliotecas que publiquei. Cada um com
       link, print e as decisões que valem contar.
@@ -26,11 +27,11 @@ const projects = sortProjects(await getCollection('projects'));
     <ProjectList projects={projects} filterable eagerCount={3} />
   </div>
 
-  <Section label="Código aberto" title="Mais no GitHub" lead="Repositórios públicos de outras épocas e de outras curiosidades.">
+  <Section eyebrow="Código aberto" title="Mais no GitHub" lead="Repositórios públicos de outras épocas e de outras curiosidades.">
     <ul class="repos">
       {
         githubRepos.map((repo) => (
-          <li class="card">
+          <li>
             <a href={repo.url} target="_blank" rel="noopener">
               <span class="name">{repo.name}</span>
               <span class="description">{repo.description}</span>
@@ -44,43 +45,63 @@ const projects = sortProjects(await getCollection('projects'));
 </Base>
 
 <style>
-  .head {
-    display: grid;
-    gap: 1rem;
-    padding-block: 3.5rem 2.5rem;
-  }
-
-  .head h1 {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  .page-head {
+    padding-bottom: 2.5rem;
   }
 
   .repos {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 0.75rem;
   }
 
   .repos a {
     display: grid;
-    gap: 0.35rem;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'name language'
+      'description description';
+    gap: 0.35rem 1rem;
     height: 100%;
     padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--card);
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
 
-  .repos li:hover {
-    border-color: var(--accent);
+  .repos a:hover {
+    border-color: var(--line-strong);
+    background: var(--canvas);
   }
 
   .name {
-    font-weight: 600;
-    color: var(--accent);
+    grid-area: name;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .repos a:hover .name {
+    color: var(--link);
   }
 
   .description {
-    font-size: 0.9375rem;
+    grid-area: description;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
   }
 
   .language {
+    grid-area: language;
+    align-self: start;
+    padding: 0.1rem 0.55rem;
+    border-radius: var(--radius-pill);
+    background: var(--canvas);
+    border: 1px solid var(--line);
     color: var(--ink-soft);
+    font-size: 0.6875rem;
   }
 </style>

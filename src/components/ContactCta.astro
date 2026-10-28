@@ -1,0 +1,75 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section class="container">
+  <div class="cta reveal">
+    <p class="eyebrow">Contato</p>
+    <h2>Vamos construir alguma coisa?</h2>
+    <p class="lead">Projeto, consultoria ou uma vaga em que isso tudo faça sentido. Respondo por e-mail, geralmente no mesmo dia.</p>
+    <div class="actions">
+      <a class="btn" href={`mailto:${profile.email}`}>{profile.email}</a>
+      <a class="btn ghost" href={profile.links.linkedin} target="_blank" rel="noopener">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a>
+      <a class="btn ghost" href={profile.links.github} target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    display: grid;
+    gap: 1.1rem;
+    justify-items: center;
+    margin-top: 5rem;
+    padding: 4rem 1.25rem;
+    border-radius: var(--radius-large);
+    background: var(--band);
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: auto -10% -60% -10%;
+    height: 22rem;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--brand) 22%, transparent), transparent);
+    z-index: -1;
+  }
+
+  h2 {
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    font-weight: 800;
+    max-width: 15ch;
+  }
+
+  .lead {
+    margin-inline: auto;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+
+  .actions .btn:first-child {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .ghost {
+    background: var(--canvas);
+  }
+
+  @media (min-width: 64rem) {
+    .cta {
+      margin-top: 7rem;
+      padding-block: 6rem;
+    }
+  }
+</style>

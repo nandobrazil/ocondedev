@@ -1,8 +1,8 @@
 ---
 import Shot from './Shot.astro';
-import StatusDot from './StatusDot.astro';
+import StatusPill from './StatusPill.astro';
 import ProjectLinks from './ProjectLinks.astro';
-import { categoryLabel, type Project } from '../lib/projects';
+import { categoryLabel, projectHost, type Project } from '../lib/projects';
 
 interface Props {
   project: Project;
@@ -14,91 +14,167 @@ const { data } = project;
 const href = `/projetos/${project.id}/`;
 ---
 
-<article class:list={['row', { flip: index % 2 === 1 }]}>
-  <a class="shot-link" href={href} tabindex="-1" aria-hidden="true">
+<article class:list={['card', 'reveal', { flip: index % 2 === 1 }]}>
+  <div class="text">
+    <div class="meta">
+      <span class="pill">{categoryLabel[data.category]}</span>
+      <StatusPill status={data.status} />
+    </div>
+    <h3><a href={href}>{data.name}</a></h3>
+    <p class="tagline">{data.tagline}</p>
+    <ul class="stack" aria-label="Stack">
+      {data.stack.slice(0, 6).map((item) => <li>{item}</li>)}
+    </ul>
+    <div class="actions">
+      <a class="btn small" href={href}>Ver o projeto <span class="arrow" aria-hidden="true">→</span></a>
+      <ProjectLinks project={project} />
+    </div>
+    <p class="host mono">{projectHost(project)} · {data.period}</p>
+  </div>
+  <a class="visual" href={href} tabindex="-1" aria-hidden="true">
     <Shot
       src={data.cover}
       srcLight={data.coverLight}
       alt={`Tela do ${data.name}`}
       widths={[640, 960, 1280]}
-      sizes="(min-width: 60rem) 40rem, 100vw"
+      sizes="(min-width: 64rem) 40rem, 100vw"
       loading={index < 2 ? 'eager' : 'lazy'}
       variant="thumb"
     />
   </a>
-  <div class="text">
-    <p class="kicker mono">{String(index + 1).padStart(2, '0')} · {categoryLabel[data.category]}</p>
-    <h3><a href={href}>{data.name}</a></h3>
-    <p class="tagline">{data.tagline}</p>
-    <p class="status-line"><StatusDot status={data.status} /><span class="sep">·</span><span class="period">{data.period}</span></p>
-    <ul class="tags">{data.stack.slice(0, 5).map((item) => <li class="tag">{item}</li>)}</ul>
-    <div class="actions">
-      <a class="btn small" href={href}>Detalhes <span class="arrow">→</span></a>
-      <ProjectLinks project={project} />
-    </div>
-  </div>
 </article>
 
 <style>
-  .row {
+  .card {
+    position: relative;
     display: grid;
-    gap: 1.5rem;
-    padding-block: 2rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-large);
+    background: var(--card);
+    overflow: hidden;
+    transition: border-color 0.25s ease;
   }
 
-  .row + .row {
-    border-top: 1px solid var(--line);
+  .card:hover {
+    border-color: var(--line-strong);
   }
 
   .text {
     display: grid;
-    gap: 0.85rem;
+    gap: 1rem;
     align-content: center;
+    justify-items: start;
+    padding: 1.75rem 1.5rem 0.5rem;
   }
 
-  .kicker {
-    color: var(--accent);
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
   }
 
   h3 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-size: clamp(2rem, 3.6vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  h3 a {
+    transition: color 0.15s ease;
   }
 
   h3 a:hover {
-    color: var(--accent);
+    color: var(--link);
   }
 
   .tagline {
     font-size: 1.0625rem;
+    line-height: 1.55;
     color: var(--ink-soft);
     text-wrap: pretty;
-    max-width: 32rem;
+    max-width: 30rem;
   }
 
-  .status-line {
+  .stack {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack li {
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background: var(--canvas);
+    border: 1px solid var(--line);
     color: var(--ink-soft);
+    font-size: 0.8125rem;
+    font-weight: 500;
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.25rem;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.5rem;
   }
 
-  @media (min-width: 60rem) {
-    .row {
-      grid-template-columns: 1.25fr 1fr;
-      gap: 3.5rem;
-      padding-block: 3rem;
+  .host {
+    color: var(--ink-mute);
+    font-size: 0.75rem;
+  }
+
+  .visual {
+    display: block;
+    padding: 1.5rem 0 0 1.5rem;
+  }
+
+  .visual :global(.frame) {
+    border-radius: var(--radius-card) 0 0 0;
+    border-right: 0;
+    border-bottom: 0;
+    box-shadow: var(--shadow-app);
+    transition: transform 0.45s var(--ease-settle);
+  }
+
+  .card:hover .visual :global(.frame) {
+    transform: translate(-6px, -6px);
+  }
+
+  @media (min-width: 64rem) {
+    .card {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      min-height: 30rem;
     }
 
-    .flip .shot-link {
+    .text {
+      padding: 3.5rem 1rem 3.5rem 3.5rem;
+    }
+
+    .visual {
+      align-self: end;
+      padding: 3.5rem 0 0 2rem;
+    }
+
+    .flip .text {
       order: 2;
+      padding: 3.5rem 3.5rem 3.5rem 1rem;
+    }
+
+    .flip .visual {
+      padding: 3.5rem 2rem 0 0;
+    }
+
+    .flip .visual :global(.frame) {
+      border-radius: 0 var(--radius-card) 0 0;
+      border-right: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .flip:hover .visual :global(.frame) {
+      transform: translate(6px, -6px);
     }
   }
 </style>

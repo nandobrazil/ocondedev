@@ -25,13 +25,6 @@ const { src, srcLight, alt, widths, sizes, loading = 'lazy', caption, variant = 
 </figure>
 
 <style>
-  .frame {
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-m);
-    overflow: hidden;
-    background: var(--surface);
-  }
-
   .shot :global(img) {
     width: 100%;
     height: auto;
@@ -40,7 +33,7 @@ const { src, srcLight, alt, widths, sizes, loading = 'lazy', caption, variant = 
   .thumb :global(img) {
     aspect-ratio: 16 / 10;
     object-fit: cover;
-    object-position: top;
+    object-position: top left;
   }
 
   .phone {
@@ -48,18 +41,23 @@ const { src, srcLight, alt, widths, sizes, loading = 'lazy', caption, variant = 
   }
 
   .phone .frame {
-    border-radius: 1.6rem;
-    padding: 0.35rem;
-    background: var(--surface-raised);
+    border-radius: 2.25rem;
+    padding: 0.45rem;
+    background: var(--ink-display);
+    border-color: var(--ink-display);
+    box-shadow: var(--shadow-app);
   }
 
   .phone :global(img) {
-    border-radius: 1.3rem;
+    border-radius: 1.8rem;
   }
 
   figcaption {
-    margin-top: 0.6rem;
+    margin-top: 0.85rem;
     font-size: 0.875rem;
+    line-height: 1.5;
     color: var(--ink-soft);
+    max-width: 32rem;
+    text-wrap: pretty;
   }
 </style>

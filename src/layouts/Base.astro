@@ -1,9 +1,6 @@
 ---
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/inter/800.css';
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource-variable/inter';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '../styles/tokens.css';
@@ -34,14 +31,15 @@ const ogImageUrl = new URL(ogImage, Astro.site);
         var theme = localStorage.getItem('theme');
         if (theme) document.documentElement.dataset.theme = theme;
       } catch (error) {}
+      document.documentElement.classList.add('js');
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#0a1016" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0b0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -60,6 +58,24 @@ const ogImageUrl = new URL(ogImage, Astro.site);
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <script>
+      const targets = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('in');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        targets.forEach((target) => observer.observe(target));
+      } else {
+        targets.forEach((target) => target.classList.add('in'));
+      }
+    </script>
   </body>
 </html>
 
@@ -69,9 +85,9 @@ const ogImageUrl = new URL(ogImage, Astro.site);
     top: -3rem;
     left: var(--gutter);
     padding: 0.5rem 0.75rem;
-    background: var(--accent);
-    color: var(--on-accent);
-    border-radius: 999px;
+    background: var(--button);
+    color: var(--on-button);
+    border-radius: var(--radius-pill);
     z-index: 10;
   }
 

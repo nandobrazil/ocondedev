@@ -1,8 +1,9 @@
 ---
 import Shot from './Shot.astro';
-import StatusDot from './StatusDot.astro';
+import StatusPill from './StatusPill.astro';
+import StackCluster from './StackCluster.astro';
 import ProjectLinks from './ProjectLinks.astro';
-import { type Project } from '../lib/projects';
+import { categoryLabel, type Project } from '../lib/projects';
 
 interface Props {
   project: Project;
@@ -15,38 +16,45 @@ const href = `/projetos/${project.id}/`;
 const search = [data.name, data.tagline, ...data.stack].join(' ').toLowerCase();
 ---
 
-<article class="project card" data-category={data.category} data-search={search}>
+<article class="project" data-category={data.category} data-search={search}>
   <a class="thumb" href={href} tabindex="-1" aria-hidden="true">
     <Shot
       src={data.cover}
       srcLight={data.coverLight}
       alt={`Tela do ${data.name}`}
       widths={[480, 720, 960]}
-      sizes="(min-width: 48rem) 28rem, 100vw"
+      sizes="(min-width: 48rem) 26rem, 100vw"
       loading={eager ? 'eager' : 'lazy'}
       variant="thumb"
     />
   </a>
   <div class="body">
-    <div class="title-row">
-      <h3><a href={href}>{data.name}</a></h3>
-      <StatusDot status={data.status} />
+    <div class="meta">
+      <span class="category">{categoryLabel[data.category]}</span>
+      <StatusPill status={data.status} />
     </div>
+    <h3><a href={href}>{data.name}</a></h3>
     <p class="tagline">{data.tagline}</p>
-    <ul class="tags">
-      {data.stack.slice(0, 4).map((item) => <li class="tag">{item}</li>)}
-      {data.stack.length > 4 && <li class="tag">+{data.stack.length - 4}</li>}
-    </ul>
-    <ProjectLinks project={project} />
+    <div class="foot">
+      <ProjectLinks project={project} />
+      <StackCluster stack={data.stack} max={4} />
+    </div>
   </div>
 </article>
 
 <style>
   .project {
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0.75rem;
-    gap: 0.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-large);
+    background: var(--canvas);
+    overflow: hidden;
+    transition:
+      border-color 0.25s ease,
+      transform 0.45s var(--ease-settle),
+      box-shadow 0.45s var(--ease-settle);
   }
 
   .project[hidden] {
@@ -54,41 +62,71 @@ const search = [data.name, data.tagline, ...data.stack].join(' ').toLowerCase();
   }
 
   .project:hover {
-    border-color: var(--accent);
+    border-color: var(--line-strong);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-app);
+  }
+
+  .thumb {
+    display: block;
+    padding: 0.5rem 0.5rem 0;
   }
 
   .thumb :global(.frame) {
-    border-color: var(--line);
+    border-radius: var(--radius-card);
   }
 
   .body {
     display: grid;
-    gap: 0.75rem;
-    padding: 1rem 0.75rem 0.75rem;
+    gap: 0.6rem;
+    flex: 1;
+    align-content: start;
+    padding: 1.1rem 1.4rem 1.4rem;
   }
 
-  .title-row {
+  .meta {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .category {
+    color: var(--ink-mute);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
   }
 
   h3 a::after {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: inherit;
-  }
-
-  h3 a:hover {
-    color: var(--accent);
   }
 
   .tagline {
     color: var(--ink-soft);
     font-size: 0.9375rem;
+    line-height: 1.5;
     text-wrap: pretty;
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.6rem;
+  }
+
+  .foot :global(.cluster) {
+    margin-left: auto;
   }
 </style>

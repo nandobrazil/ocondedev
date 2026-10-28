@@ -2,46 +2,122 @@
 import { profile } from '../data/profile';
 
 const year = new Date().getFullYear();
+const pages = [
+  { href: '/projetos/', label: 'Projetos' },
+  { href: '/experiencia/', label: 'Experiência' },
+  { href: '/setup/', label: 'Setup' },
+  { href: '/contato/', label: 'Contato' },
+];
 ---
 
 <footer class="site-footer">
-  <div class="container row mono">
-    <p>© {year} {profile.name} · {profile.city}</p>
-    <ul class="links">
-      <li><a href={profile.links.github} rel="noopener" target="_blank">GitHub</a></li>
-      <li><a href={profile.links.linkedin} rel="noopener" target="_blank">LinkedIn</a></li>
-      <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-      <li><a href={profile.links.tools} rel="noopener" target="_blank">tools.oconde.dev</a></li>
-    </ul>
+  <div class="container grid">
+    <div class="about">
+      <a class="wordmark" href="/">oconde<span>.dev</span></a>
+      <p class="note">{profile.name}, {profile.title.toLowerCase()} em {profile.city}. Site estático em Astro, servido pelo meu próprio cluster.</p>
+    </div>
+    <nav aria-label="Páginas">
+      <p class="eyebrow">Páginas</p>
+      <ul>
+        {pages.map((page) => <li><a href={page.href}>{page.label}</a></li>)}
+      </ul>
+    </nav>
+    <div>
+      <p class="eyebrow">Contato</p>
+      <ul>
+        <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+        <li><a href={profile.links.github} rel="noopener" target="_blank">GitHub</a></li>
+        <li><a href={profile.links.linkedin} rel="noopener" target="_blank">LinkedIn</a></li>
+        <li><a href={profile.links.tools} rel="noopener" target="_blank">tools.oconde.dev</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="bottom">
+      <p class="mono">© {year} {profile.name}</p>
+      <a class="mono" href="https://status.oconde.dev/radar" target="_blank" rel="noopener"><span class="beat" aria-hidden="true"></span> Status dos sistemas</a>
+    </div>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--line);
     margin-top: 6rem;
-    padding-block: 1.75rem;
+    border-top: 1px solid var(--line);
+    background: var(--card);
     color: var(--ink-soft);
+    font-size: 0.9375rem;
   }
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 2rem;
-    justify-content: space-between;
+  .grid {
+    display: grid;
+    gap: 2.5rem 3rem;
+    padding-block: 3.5rem 2.5rem;
   }
 
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.25rem;
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    color: var(--ink-display);
   }
 
-  .links a {
-    text-decoration: none;
+  .wordmark span {
+    color: var(--ink-mute);
   }
 
-  .links a:hover {
+  .note {
+    margin-top: 0.75rem;
+    max-width: 24rem;
+    text-wrap: pretty;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+
+  ul a {
+    transition: color 0.15s ease;
+  }
+
+  ul a:hover {
     color: var(--ink);
+  }
+
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-block: 1.25rem 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-mute);
+  }
+
+  .bottom .mono:hover {
+    color: var(--ink);
+  }
+
+  .bottom .mono {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .beat {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--status-live);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
   }
 </style>

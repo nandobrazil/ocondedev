@@ -8,27 +8,21 @@ import { experience } from '../data/experience';
   title="Experiência — Fernando Conde"
   description="Trajetória profissional de Fernando Conde: Fretefy, DNA Specialty, Totem TI, Capgemini, Rocket IT, Frinfo Consultoria e Air Software, de 2015 até hoje."
 >
-  <section class="container head">
-    <p class="badge">Experiência</p>
-    <h1>Onde trabalhei e o que fiz</h1>
+  <section class="container page-head">
+    <p class="pill brand">2015 até hoje</p>
+    <h1>Onde trabalhei e <span class="gradient-text">o que fiz</span></h1>
     <p class="lead">
       Comecei em 2015 com VB.NET no setor público; passei por consultorias, banco, saúde e logística; fundei a minha
       consultoria no meio do caminho. Hoje divido o tempo entre o trabalho na Fretefy e os meus produtos.
     </p>
   </section>
-  <div class="container">
+  <div class="container timeline">
     <Timeline jobs={experience} />
   </div>
 </Base>
 
 <style>
-  .head {
-    display: grid;
-    gap: 1rem;
-    padding-block: 3.5rem 2.5rem;
-  }
-
-  .head h1 {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
+  .timeline {
+    padding-top: 0.5rem;
   }
 </style>

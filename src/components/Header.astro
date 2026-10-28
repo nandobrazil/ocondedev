@@ -5,15 +5,21 @@ const links = [
   { href: '/projetos/', label: 'Projetos' },
   { href: '/experiencia/', label: 'Experiência' },
   { href: '/setup/', label: 'Setup' },
-  { href: '/contato/', label: 'Contato' },
 ];
 const path = Astro.url.pathname;
 ---
 
 <header class="site-header">
   <div class="container row">
-    <a class="wordmark mono" href="/">oconde<span>.dev</span></a>
-    <nav aria-label="Principal" class="mono">
+    <a class="wordmark" href="/" aria-label="oconde.dev, página inicial">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8.5 7 4 12l4.5 5M15.5 7 20 12l-4.5 5" />
+        </svg>
+      </span>
+      <span>oconde<span class="tld">.dev</span></span>
+    </a>
+    <nav aria-label="Principal">
       {
         links.map((link) => (
           <a href={link.href} aria-current={path.startsWith(link.href) ? 'page' : undefined}>
@@ -22,66 +28,115 @@ const path = Astro.url.pathname;
         ))
       }
     </nav>
-    <ThemeToggle />
+    <div class="end">
+      <ThemeToggle />
+      <a class="btn small" href="/contato/">Falar comigo</a>
+    </div>
   </div>
 </header>
 
 <style>
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--canvas) 82%, transparent);
+    backdrop-filter: saturate(1.6) blur(14px);
+    -webkit-backdrop-filter: saturate(1.6) blur(14px);
     border-bottom: 1px solid var(--line);
   }
 
   .row {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    min-height: 3.5rem;
+    gap: 1.25rem;
+    min-height: 4rem;
   }
 
   .wordmark {
-    font-weight: 500;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    margin-right: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.0625rem;
+    letter-spacing: -0.03em;
+    color: var(--ink-display);
   }
 
-  .wordmark span {
-    color: var(--ink-soft);
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 8px;
+    background: var(--gradient-brand);
+    color: #ffffff;
+  }
+
+  .tld {
+    color: var(--ink-mute);
+    font-weight: 600;
   }
 
   nav {
     display: flex;
-    gap: 1.25rem;
+    gap: 0.25rem;
+    margin-right: auto;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
   }
 
   nav a {
-    text-decoration: none;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-pill);
     color: var(--ink-soft);
-    padding-block: 0.25rem;
-    border-bottom: 1px solid transparent;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
   }
 
   nav a:hover {
     color: var(--ink);
+    background: var(--hover-fill);
   }
 
   nav a[aria-current='page'] {
     color: var(--ink);
-    border-bottom-color: var(--accent);
+    background: var(--hover-fill);
   }
 
-  @media (max-width: 40rem) {
+  .end {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    nav {
+      margin-left: 1.25rem;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
     .row {
       flex-wrap: wrap;
-      padding-block: 0.6rem;
-      gap: 0.75rem 1rem;
+      padding-block: 0.6rem 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .end {
+      margin-left: auto;
     }
 
     nav {
       order: 3;
-      width: 100%;
-      gap: 1rem;
+      width: calc(100% + 2 * var(--gutter));
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: calc(var(--gutter) - 0.85rem);
       overflow-x: auto;
+      scrollbar-width: none;
     }
   }
 </style>

@@ -4,31 +4,35 @@ import { profile } from '../data/profile';
 ---
 
 <Base title="Contato — Fernando Conde" description="Fale com Fernando Conde por e-mail, LinkedIn ou GitHub.">
-  <section class="container head">
-    <p class="badge">Contato</p>
-    <h1>Vamos conversar</h1>
+  <section class="container page-head">
+    <p class="pill brand">{profile.city}</p>
+    <h1>Vamos <span class="gradient-text">conversar</span></h1>
     <p class="lead">
       Projeto, consultoria, uma vaga ou só uma dúvida sobre algo que está aqui. Respondo por e-mail, geralmente no mesmo
       dia.
     </p>
   </section>
-  <div class="container cards">
-    <div class="card item">
-      <p class="label">E-mail</p>
-      <p class="value"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
-      <button class="btn ghost small copy" type="button" data-copy={profile.email}>Copiar e-mail</button>
+  <dl class="container channels">
+    <div>
+      <dt>E-mail</dt>
+      <dd>
+        <a class="value" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <button class="btn small copy" type="button" data-copy={profile.email}>Copiar e-mail</button>
+      </dd>
     </div>
-    <div class="card item">
-      <p class="label">LinkedIn</p>
-      <p class="value">linkedin.com/in/nandobrazil</p>
-      <a class="btn ghost small" href={profile.links.linkedin} target="_blank" rel="noopener">Abrir perfil <span class="arrow">↗</span></a>
+    <div>
+      <dt>LinkedIn</dt>
+      <dd>
+        <a class="value" href={profile.links.linkedin} target="_blank" rel="noopener">linkedin.com/in/nandobrazil</a>
+      </dd>
     </div>
-    <div class="card item">
-      <p class="label">GitHub</p>
-      <p class="value">github.com/nandobrazil</p>
-      <a class="btn ghost small" href={profile.links.github} target="_blank" rel="noopener">Ver repositórios <span class="arrow">↗</span></a>
+    <div>
+      <dt>GitHub</dt>
+      <dd>
+        <a class="value" href={profile.links.github} target="_blank" rel="noopener">github.com/nandobrazil</a>
+      </dd>
     </div>
-  </div>
+  </dl>
   <p class="toast" id="toast" role="status" aria-live="polite"></p>
 </Base>
 
@@ -51,43 +55,55 @@ import { profile } from '../data/profile';
 </script>
 
 <style>
-  .head {
-    display: grid;
-    gap: 1rem;
-    padding-block: 3.5rem 2.5rem;
-  }
-
-  .head h1 {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
-  }
-
-  .cards {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
-  }
-
-  .item {
+  .channels {
     display: grid;
     gap: 0.75rem;
-    align-content: start;
-    justify-items: start;
-    padding: 1.5rem;
   }
 
-  .label {
-    font-size: 0.8125rem;
-    color: var(--ink-soft);
+  .channels > div {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-large);
+    background: var(--card);
+    transition: border-color 0.2s ease;
+  }
+
+  .channels > div:hover {
+    border-color: var(--line-strong);
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  dd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
   }
 
   .value {
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    color: var(--ink-display);
     overflow-wrap: anywhere;
+    transition: color 0.15s ease;
   }
 
-  .value a:hover {
-    color: var(--accent);
+  .value:hover {
+    color: var(--link);
   }
 
   .toast {
@@ -95,20 +111,30 @@ import { profile } from '../data/profile';
     left: 50%;
     bottom: 1.5rem;
     transform: translate(-50%, 1rem);
-    padding: 0.6rem 1rem;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--on-accent);
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-pill);
+    background: var(--button);
+    color: var(--on-button);
     font-weight: 600;
+    font-size: 0.875rem;
     opacity: 0;
     transition:
       opacity 0.2s ease,
-      transform 0.2s ease;
+      transform 0.3s var(--ease-settle);
     pointer-events: none;
   }
 
   .toast.show {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+
+  @media (min-width: 48rem) {
+    .channels > div {
+      grid-template-columns: 9rem 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 2.25rem;
+    }
   }
 </style>

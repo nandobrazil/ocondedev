@@ -1,37 +1,57 @@
 ---
 interface Props {
   id?: string;
-  label: string;
+  eyebrow?: string;
   title: string;
   lead?: string;
+  align?: 'start' | 'center';
 }
 
-const { id, label, title, lead } = Astro.props;
+const { id, eyebrow, title, lead, align = 'start' } = Astro.props;
 ---
 
-<section class="section container" id={id}>
-  <header class="section-head">
-    <p class="badge">{label}</p>
+<section class:list={['section', 'container', align]} id={id}>
+  <header class="section-head reveal">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h2>{title}</h2>
     {lead && <p class="lead">{lead}</p>}
+    <slot name="action" />
   </header>
   <slot />
 </section>
 
 <style>
   .section {
-    padding-block: 3.5rem;
+    padding-block: 5rem 0;
   }
 
   .section-head {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 2.25rem;
+    gap: 1rem;
+    justify-items: start;
+    margin-bottom: 2.5rem;
   }
 
-  @media (min-width: 48rem) {
+  .section-head h2 {
+    max-width: 18ch;
+  }
+
+  .center .section-head {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .center .section-head .lead {
+    margin-inline: auto;
+  }
+
+  @media (min-width: 64rem) {
     .section {
-      padding-block: 4.5rem;
+      padding-block: 7rem 0;
+    }
+
+    .section-head {
+      margin-bottom: 3.5rem;
     }
   }
 </style>

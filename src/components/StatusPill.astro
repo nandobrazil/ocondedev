@@ -1,0 +1,79 @@
+---
+import { statusLabel, type ProjectStatus } from '../lib/projects';
+
+interface Props {
+  status: ProjectStatus;
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={['status', status]}><i aria-hidden="true"></i>{statusLabel[status]}</span>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--status-bg);
+    color: var(--status-ink);
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .status i {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--status-dot);
+  }
+
+  .live {
+    --status-bg: var(--status-live-bg);
+    --status-ink: var(--status-live-ink);
+    --status-dot: var(--status-live);
+  }
+
+  .preview {
+    --status-bg: var(--status-preview-bg);
+    --status-ink: var(--status-preview-ink);
+    --status-dot: var(--status-preview);
+  }
+
+  .frozen,
+  .archived {
+    --status-bg: var(--status-frozen-bg);
+    --status-ink: var(--status-frozen-ink);
+    --status-dot: var(--status-frozen);
+  }
+
+  .private {
+    --status-bg: var(--status-private-bg);
+    --status-ink: var(--status-private-ink);
+    --status-dot: var(--status-private);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .live i {
+      animation: pulse 2.4s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-live) 55%, transparent);
+      }
+
+      70%,
+      100% {
+        box-shadow: 0 0 0 5px transparent;
+      }
+    }
+  }
+</style>
